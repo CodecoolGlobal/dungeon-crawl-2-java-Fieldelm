@@ -14,6 +14,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
+
+import java.awt.*;
 
 public class Main extends Application {
     GameMap map = MapLoader.loadMap();
@@ -22,6 +25,8 @@ public class Main extends Application {
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
+    Label inventory = new Label();
+    Button pickUpItem = new Button("Pick up");
 
     public static void main(String[] args) {
         launch(args);
@@ -35,6 +40,8 @@ public class Main extends Application {
 
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
+        ui.add(pickUpItem, 0, 2 );
+        ui.add(inventory, 0, 3);
 
         BorderPane borderPane = new BorderPane();
 
@@ -68,8 +75,7 @@ public class Main extends Application {
                 map.getPlayer().move(1,0);
                 refresh();
                 break;
-            case SPACE:
-                map.getPlayer().pickUpItem();
+
         }
     }
 
@@ -90,5 +96,8 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
+        pickUpItem.setOnAction(mousedown -> map.getPlayer().pickUpItem());
+        pickUpItem.setFocusTraversable(false);
+        inventory.setText(map.getPlayer().getItemInventory().toString());
     }
 }

@@ -20,6 +20,10 @@ public class Player extends Actor {
 
     }
 
+    public Inventory getItemInventory(){
+        return this.itemInventory;
+    }
+
     public String getTileName() {
         return "player";
     }
