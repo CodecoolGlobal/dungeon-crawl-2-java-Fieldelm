@@ -12,4 +12,10 @@ public Item(Cell cell){
 
 }
 
+public Cell getCell(){ return this.cell;}
+
+public int getX(){ return cell.getX();}
+
+    public int getY(){ return cell.getY();}
+
 }
