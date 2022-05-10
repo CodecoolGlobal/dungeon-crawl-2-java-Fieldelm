@@ -50,11 +50,11 @@ public class GameMap {
         int nextY;
         if(player.getCell().getX()<= 10){
             nextX = 10;
-        }else nextX = Math.min(player.getCell().getX(), width - 10);
+        }else nextX = Math.min(player.getCell().getX(), width - 11);
 
         if(player.getCell().getY()<= 10){
             nextY = 10;
-        }else nextY = Math.min(player.getCell().getY(), height - 10);
+        }else nextY = Math.min(player.getCell().getY(), height - 11);
 
         centerCell = cells[nextX][nextY];
 

@@ -19,8 +19,8 @@ public class Main extends Application {
     static final int CONST_10 = 10;
     GameMap map = MapLoader.loadMap();
     Canvas canvas = new Canvas(
-            20 * Tiles.TILE_WIDTH,
-            20 * Tiles.TILE_WIDTH);
+            21 * Tiles.TILE_WIDTH,
+            21 * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
 
@@ -79,8 +79,8 @@ public class Main extends Application {
     private void refresh() {
         int minX = map.getCenterCell().getX() - CONST_10;
         int minY = map.getCenterCell().getY() - CONST_10;
-        int maxX = map.getCenterCell().getX() + CONST_10;
-        int maxY = map.getCenterCell().getY() + CONST_10;
+        int maxX = map.getCenterCell().getX() + CONST_10 + 1;
+        int maxY = map.getCenterCell().getY() + CONST_10 + 1;
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, 20, 20);
         for (int x = minX; x < maxX; x++) {
