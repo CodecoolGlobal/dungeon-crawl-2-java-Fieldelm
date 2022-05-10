@@ -30,6 +30,10 @@ public abstract class Actor implements Drawable {
         return health;
     }
 
+    public void incraseHealth() {
+        health++;
+    }
+
     public Cell getCell() {
         return cell;
     }
