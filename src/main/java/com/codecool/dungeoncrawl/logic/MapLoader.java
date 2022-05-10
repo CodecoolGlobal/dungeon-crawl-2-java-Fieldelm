@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class MapLoader {
     public static GameMap loadMap() {
-        InputStream is = MapLoader.class.getResourceAsStream("/map.txt");
+        InputStream is = MapLoader.class.getResourceAsStream("/bigmap.txt");
         assert is != null;
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();

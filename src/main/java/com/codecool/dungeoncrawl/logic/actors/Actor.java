@@ -14,7 +14,7 @@ public abstract class Actor implements Drawable {
         this.cell.setActor(this);
     }
 
-    public void move(int dx, int dy) {
+    public boolean move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
         if(nextCell.getActor() != null){
             nextCell.getActor().takeDamage(actual_damage, this);
@@ -23,7 +23,9 @@ public abstract class Actor implements Drawable {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
+            return true;
         }
+        return false;
     }
 
     public int getHealth() {

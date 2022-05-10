@@ -53,34 +53,42 @@ public class Main extends Application {
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case UP:
-                map.getPlayer().move(0, -1);
+                if(map.getPlayer().move(0, -1))
+                    map.setCenterCell(0, -1);
                 refresh();
                 break;
             case DOWN:
-                map.getPlayer().move(0, 1);
+                if(map.getPlayer().move(0, 1))
+                    map.setCenterCell(0, 1);
                 refresh();
                 break;
             case LEFT:
-                map.getPlayer().move(-1, 0);
+                if(map.getPlayer().move(-1, 0))
+                    map.setCenterCell(-1, 0);
                 refresh();
                 break;
             case RIGHT:
-                map.getPlayer().move(1,0);
+                if(map.getPlayer().move(1,0))
+                    map.setCenterCell(1, 0);
                 refresh();
                 break;
         }
     }
 
     private void refresh() {
+        int minX = map.getCenterCell().getX() - 10;
+        int minY = map.getCenterCell().getY() - 10;
+        int maxX = map.getCenterCell().getX() + 10;
+        int maxY = map.getCenterCell().getY() + 10;
         context.setFill(Color.BLACK);
-        context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        for (int x = 0; x < map.getWidth(); x++) {
-            for (int y = 0; y < map.getHeight(); y++) {
+        context.fillRect(10, 10, 20, 20);
+        for (int x = minX; x < maxX; x++) {
+            for (int y = minY; y < maxY; y++) {
                 Cell cell = map.getCell(x, y);
                 if (cell.getActor() != null) {
-                    Tiles.drawTile(context, cell.getActor(), x, y);
+                    Tiles.drawTile(context, cell.getActor(), x - minX, y - minY);
                 } else {
-                    Tiles.drawTile(context, cell, x, y);
+                    Tiles.drawTile(context, cell, x - minX, y - minY);
                 }
             }
         }
