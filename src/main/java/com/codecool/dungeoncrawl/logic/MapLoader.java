@@ -54,6 +54,7 @@ public class MapLoader {
                         case 'w':
                             cell.setType(CellType.FLOOR);
                             new magicWand(cell);
+                            break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

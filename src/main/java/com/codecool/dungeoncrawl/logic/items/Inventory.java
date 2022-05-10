@@ -18,7 +18,7 @@ public class Inventory {
         items.put(item, 1);
     }
 
-    public void pickItem(Item item){
+    public void pickOutItem(Item item){
         if (items.containsKey(item)){
             if (items.get(item) >1){
                 items.put(item, items.get(item) -1);

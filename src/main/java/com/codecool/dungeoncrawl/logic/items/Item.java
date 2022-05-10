@@ -14,6 +14,10 @@ public Item(Cell cell){
 
 public Cell getCell(){ return this.cell;}
 
+public void setCell(Cell cell){
+    this.cell = cell;
+}
+
 public int getX(){ return cell.getX();}
 
     public int getY(){ return cell.getY();}
