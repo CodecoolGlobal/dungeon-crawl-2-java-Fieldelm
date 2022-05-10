@@ -45,11 +45,18 @@ public class GameMap {
         return centerCell;
     }
 
-    public void setCenterCell(int dx, int dy){
-        if(centerCell.getX() + dx >= 8 && centerCell.getY() + dy >= 8
-        && centerCell.getX() + dx < width - 8 && centerCell.getY() < height - 8){
-            centerCell = cells[centerCell.getX() + dx][centerCell.getY() + dy];
-        }
+    public void repositionCenter(){
+        int nextX;
+        int nextY;
+        if(player.getCell().getX()<= 10){
+            nextX = 10;
+        }else nextX = Math.min(player.getCell().getX(), width - 10);
+
+        if(player.getCell().getY()<= 10){
+            nextY = 10;
+        }else nextY = Math.min(player.getCell().getY(), height - 10);
+
+        centerCell = cells[nextX][nextY];
 
     }
 

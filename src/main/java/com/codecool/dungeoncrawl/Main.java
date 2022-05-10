@@ -16,10 +16,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    static final int CONST_10 = 10;
     GameMap map = MapLoader.loadMap();
     Canvas canvas = new Canvas(
-            map.getWidth() * Tiles.TILE_WIDTH,
-            map.getHeight() * Tiles.TILE_WIDTH);
+            20 * Tiles.TILE_WIDTH,
+            20 * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
 
@@ -53,35 +54,35 @@ public class Main extends Application {
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case UP:
-                if(map.getPlayer().move(0, -1))
-                    map.setCenterCell(0, -1);
+                map.getPlayer().move(0, -1);
+                map.repositionCenter();
                 refresh();
                 break;
             case DOWN:
-                if(map.getPlayer().move(0, 1))
-                    map.setCenterCell(0, 1);
+                map.getPlayer().move(0, 1);
+                map.repositionCenter();
                 refresh();
                 break;
             case LEFT:
-                if(map.getPlayer().move(-1, 0))
-                    map.setCenterCell(-1, 0);
+                map.getPlayer().move(-1, 0);
+                map.repositionCenter();
                 refresh();
                 break;
             case RIGHT:
-                if(map.getPlayer().move(1,0))
-                    map.setCenterCell(1, 0);
+                map.getPlayer().move(1,0);
+                map.repositionCenter();
                 refresh();
                 break;
         }
     }
 
     private void refresh() {
-        int minX = map.getCenterCell().getX() - 10;
-        int minY = map.getCenterCell().getY() - 10;
-        int maxX = map.getCenterCell().getX() + 10;
-        int maxY = map.getCenterCell().getY() + 10;
+        int minX = map.getCenterCell().getX() - CONST_10;
+        int minY = map.getCenterCell().getY() - CONST_10;
+        int maxX = map.getCenterCell().getX() + CONST_10;
+        int maxY = map.getCenterCell().getY() + CONST_10;
         context.setFill(Color.BLACK);
-        context.fillRect(10, 10, 20, 20);
+        context.fillRect(0, 0, 20, 20);
         for (int x = minX; x < maxX; x++) {
             for (int y = minY; y < maxY; y++) {
                 Cell cell = map.getCell(x, y);
