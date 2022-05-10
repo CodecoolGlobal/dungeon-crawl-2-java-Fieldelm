@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.logic.actors.Monsters;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 
 public class GameMap {
@@ -61,4 +62,14 @@ public class GameMap {
 
     }
 
+
+    public void monsterMove() {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (cells[x][y].getActor() instanceof Monsters) {
+                    ((Monsters) cells[x][y].getActor()).monsterAct(this);
+                }
+            }
+        }
+    }
 }
