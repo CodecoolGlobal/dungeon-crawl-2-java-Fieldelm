@@ -14,6 +14,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
+
+import java.awt.*;
 
 public class Main extends Application {
     static final int CONST_10 = 10;
@@ -23,6 +26,8 @@ public class Main extends Application {
             21 * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
+    Label inventory = new Label();
+    Button pickUpItem = new Button("Pick up");
 
     public static void main(String[] args) {
         launch(args);
@@ -36,6 +41,8 @@ public class Main extends Application {
 
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
+        ui.add(pickUpItem, 0, 2 );
+        ui.add(inventory, 0, 3);
 
         BorderPane borderPane = new BorderPane();
 
@@ -77,6 +84,7 @@ public class Main extends Application {
                 map.monsterMove();
                 refresh();
                 break;
+
         }
     }
 
@@ -91,12 +99,18 @@ public class Main extends Application {
             for (int y = minY; y < maxY; y++) {
                 Cell cell = map.getCell(x, y);
                 if (cell.getActor() != null) {
-                    Tiles.drawTile(context, cell.getActor(), x - minX, y - minY);
-                } else {
-                    Tiles.drawTile(context, cell, x - minX, y - minY);
+                    Tiles.drawTile(context, cell.getActor(), x-minX, y-minY);
+                } else if (cell.getItem() != null) {
+                    Tiles.drawTile(context, cell.getItem(), x-minX, y-minY);
+                }else {
+                    Tiles.drawTile(context, cell, x-minX, y-minY);
+
                 }
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
+        pickUpItem.setOnAction(mousedown -> map.getPlayer().pickUpItem());
+        pickUpItem.setFocusTraversable(false);
+        inventory.setText(map.getPlayer().getItemInventory().toString());
     }
 }
