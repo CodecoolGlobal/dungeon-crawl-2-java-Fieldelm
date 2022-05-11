@@ -20,7 +20,8 @@ import java.awt.*;
 
 public class Main extends Application {
     static final int CONST_10 = 10;
-    GameMap map = MapLoader.loadMap();
+    Label message = new Label();
+    GameMap map = MapLoader.loadMap(message);
     Canvas canvas = new Canvas(
             21 * Tiles.TILE_WIDTH,
             21 * Tiles.TILE_WIDTH);
@@ -28,6 +29,8 @@ public class Main extends Application {
     Label healthLabel = new Label();
     Label inventory = new Label();
     Button pickUpItem = new Button("Pick up");
+
+
 
     public static void main(String[] args) {
         launch(args);
@@ -43,6 +46,7 @@ public class Main extends Application {
         ui.add(healthLabel, 1, 0);
         ui.add(pickUpItem, 0, 2 );
         ui.add(inventory, 0, 3);
+        ui.add(message, 0, 4);
 
         BorderPane borderPane = new BorderPane();
 

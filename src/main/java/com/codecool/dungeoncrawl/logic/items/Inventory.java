@@ -1,8 +1,6 @@
 package com.codecool.dungeoncrawl.logic.items;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Inventory {
     private HashMap <Item, Integer> items;
@@ -17,6 +15,18 @@ public class Inventory {
         }
         items.put(item, 1);
     }
+
+    public void useItem(Item item){
+        if (items.containsKey(item)){
+            System.out.println("You are using " + item.getTileName()+ " .");
+        }
+        else{
+            System.out.println("You don't have" + item.getTileName()+ " to use.");
+        }
+    }
+public boolean hasMagicWand(){
+        return items.containsKey("magicWand");
+}
 
     public void pickOutItem(Item item){
         if (items.containsKey(item)){
@@ -36,7 +46,7 @@ public class Inventory {
         StringBuilder inventoryString = new StringBuilder("Inventory items:\n");
 
         items.forEach((item, amount) -> {
-            inventoryString.append(item.getTileName() + amount);
+            inventoryString.append(item.getTileName() +": "+ amount + "\n");
         });
         return (items.size() >0 ? inventoryString.toString(): "No items in inventory");
     }

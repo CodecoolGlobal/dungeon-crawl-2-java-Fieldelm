@@ -4,13 +4,15 @@ import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Dementor;
 import com.codecool.dungeoncrawl.logic.actors.Troll;
-import com.codecool.dungeoncrawl.logic.items.magicWand;
+import com.codecool.dungeoncrawl.logic.items.MagicKey;
+import com.codecool.dungeoncrawl.logic.items.MagicWand;
+import javafx.scene.control.Label;
 
 import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
-    public static GameMap loadMap() {
+    public static GameMap loadMap(Label message) {
         InputStream is = MapLoader.class.getResourceAsStream("/bigmap.txt");
         assert is != null;
         Scanner scanner = new Scanner(is);
@@ -83,7 +85,7 @@ public class MapLoader {
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);
-                            map.setPlayer(new Player(cell));
+                            map.setPlayer(new Player(cell, message));
                             break;
                         case 'G':
                             cell.setType(CellType.FLOOR);
@@ -95,7 +97,11 @@ public class MapLoader {
                             break;
                         case ',':
                             cell.setType(CellType.FLOOR);
-                            new magicWand(cell);
+                            new MagicWand(cell);
+                            break;
+                        case 'k':
+                            cell.setType(CellType.FLOOR);
+                            new MagicKey(cell);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
