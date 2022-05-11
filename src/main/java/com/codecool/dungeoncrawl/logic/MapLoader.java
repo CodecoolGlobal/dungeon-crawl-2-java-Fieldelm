@@ -4,7 +4,8 @@ import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Dementor;
 import com.codecool.dungeoncrawl.logic.actors.Troll;
-import com.codecool.dungeoncrawl.logic.items.magicWand;
+import com.codecool.dungeoncrawl.logic.items.MagicKey;
+import com.codecool.dungeoncrawl.logic.items.MagicWand;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -53,7 +54,11 @@ public class MapLoader {
                             break;
                         case 'w':
                             cell.setType(CellType.FLOOR);
-                            new magicWand(cell);
+                            new MagicWand(cell);
+                            break;
+                        case 'k':
+                            cell.setType(CellType.FLOOR);
+                            new MagicKey(cell);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
