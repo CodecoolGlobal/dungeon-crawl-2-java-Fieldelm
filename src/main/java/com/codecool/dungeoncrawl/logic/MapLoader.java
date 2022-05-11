@@ -93,7 +93,7 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new Troll(cell);
                             break;
-                        case 'w':
+                        case ',':
                             cell.setType(CellType.FLOOR);
                             new magicWand(cell);
                             break;
