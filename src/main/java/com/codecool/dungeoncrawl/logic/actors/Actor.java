@@ -48,6 +48,10 @@ public abstract class Actor implements Drawable {
         return cell.getY();
     }
 
+    public void setCell(Cell cell){
+        this.cell = cell;
+    }
+
     public void takeDamage(int damage, Actor actor){
         health -= damage;
         if(health <= 0){
