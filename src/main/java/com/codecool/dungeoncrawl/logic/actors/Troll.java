@@ -18,4 +18,10 @@ public class Troll extends Monsters{
     public String getTileName() {
         return "troll";
     }
+
+    @Override
+    public  void directionCalculator(){
+    }
 }
+
+

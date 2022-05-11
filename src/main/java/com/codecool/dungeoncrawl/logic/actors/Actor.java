@@ -19,7 +19,8 @@ public abstract class Actor implements Drawable {
         if(nextCell.getActor() != null){
             nextCell.getActor().takeDamage(actual_damage, this);
         }
-        else if(nextCell.getType() == CellType.FLOOR){
+        else if(nextCell.getType() == CellType.FLOOR || nextCell.getType() == CellType.GRASS
+                || nextCell.getType() == CellType.LESSFLOOR || nextCell.getType() == CellType.ENTRANCE){
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;

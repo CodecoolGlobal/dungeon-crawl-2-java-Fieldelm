@@ -25,11 +25,25 @@ public class Tiles {
     static {
         tileMap.put("empty", new Tile(0, 0));
         tileMap.put("wall", new Tile(10, 17));
+        tileMap.put("noWall", new Tile(3, 0));
         tileMap.put("floor", new Tile(2, 0));
+        tileMap.put("lessfloor", new Tile(1, 0));
         tileMap.put("player", new Tile(27, 0));
-        tileMap.put("dementor", new Tile(29, 6));
+        tileMap.put("dementor", new Tile(27, 6));
         tileMap.put("ghost", new Tile(27, 8));
         tileMap.put("troll", new Tile(29, 2));
+        tileMap.put("tree", new Tile(0, 1));
+        tileMap.put("treetwo", new Tile(3, 1));
+        tileMap.put("table", new Tile(0, 7));
+        tileMap.put("stonefence", new Tile(2, 11));
+        tileMap.put("entrance", new Tile(6, 9));
+        tileMap.put("stonefencetwo", new Tile(19, 0));
+        tileMap.put("grass", new Tile(5, 0));
+        tileMap.put("water", new Tile(8, 5));
+        tileMap.put("house", new Tile(6, 20));
+        tileMap.put("housetwo", new Tile(8, 20));
+        tileMap.put("campfire", new Tile(14, 10));
+        tileMap.put("fence", new Tile(0, 3));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {

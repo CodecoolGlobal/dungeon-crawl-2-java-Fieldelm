@@ -31,10 +31,52 @@ public class MapLoader {
                         case '#':
                             cell.setType(CellType.WALL);
                             break;
+                        case 'r':
+                            cell.setType(CellType.TREE);
+                            break;
+                        case 'e':
+                            cell.setType(CellType.TREETWO);
+                            break;
+                        case 'b':
+                            cell.setType(CellType.TABLE);
+                            break;
+                        case 'i':
+                            cell.setType(CellType.HOUSETWO);
+                            break;
+                        case 'g':
+                            cell.setType(CellType.ENTRANCE);
+                            break;
+                        case 'í':
+                            cell.setType(CellType.HOUSE);
+                            break;
+                        case 'c':
+                            cell.setType(CellType.CAMPFIRE);
+                            break;
+                        case 'f':
+                            cell.setType(CellType.FENCE);
+                            break;
+                        case 'l':
+                            cell.setType(CellType.LESSFLOOR);
+                            break;
+                        case 's':
+                            cell.setType(CellType.STONEFENCE);
+                            break;
+                        case 't':
+                            cell.setType(CellType.STONEFENCETWO);
+                            break;
+                        case '-':
+                            cell.setType(CellType.NOWALL);
+                            break;
+                        case 'w':
+                            cell.setType(CellType.WATER);
+                            break;
+                        case '_':
+                            cell.setType(CellType.GRASS);
+                            break;
                         case '.':
                             cell.setType(CellType.FLOOR);
                             break;
-                        case 's':
+                        case 'd':
                             cell.setType(CellType.FLOOR);
                             new Dementor(cell);
                             break;
