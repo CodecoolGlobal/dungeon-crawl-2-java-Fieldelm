@@ -6,12 +6,13 @@ import com.codecool.dungeoncrawl.logic.actors.Dementor;
 import com.codecool.dungeoncrawl.logic.actors.Troll;
 import com.codecool.dungeoncrawl.logic.items.MagicKey;
 import com.codecool.dungeoncrawl.logic.items.MagicWand;
+import javafx.scene.control.Label;
 
 import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
-    public static GameMap loadMap() {
+    public static GameMap loadMap(Label message) {
         InputStream is = MapLoader.class.getResourceAsStream("/bigmap.txt");
         assert is != null;
         Scanner scanner = new Scanner(is);
@@ -42,7 +43,7 @@ public class MapLoader {
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);
-                            map.setPlayer(new Player(cell));
+                            map.setPlayer(new Player(cell, message));
                             break;
                         case 'G':
                             cell.setType(CellType.FLOOR);

@@ -3,12 +3,15 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Inventory;
+import javafx.scene.control.Label;
 
 public class Player extends Actor {
     private Inventory itemInventory;
+    private Label messageLabel;
 
-    public Player(Cell cell) {
+    public Player(Cell cell, Label messageLabel) {
         super(cell);
+        this.messageLabel = messageLabel;
         actual_damage = 5;
         this.itemInventory = new Inventory();
 
@@ -35,7 +38,7 @@ public class Player extends Actor {
             if(itemInventory.hasMagicWand()) {
                 nextCell.getActor().takeDamage(actual_damage, this);
             }else{
-                System.out.println("You don't have your magic wand, pick it up or you will die");
+                messageLabel.setText("You don't have \n your magic wand.");
             }
         }
         else if(nextCell.getType() == CellType.FLOOR){
