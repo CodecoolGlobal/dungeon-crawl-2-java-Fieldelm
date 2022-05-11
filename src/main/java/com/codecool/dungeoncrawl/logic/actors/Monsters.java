@@ -10,7 +10,7 @@ public abstract class Monsters extends Actor {
     public abstract void directionCalculator();
 
 @Override
-public boolean move(int dx, int dy) {
+public void move(int dx, int dy, GameMap map) {
         Cell nextCell = getCell().getNeighbor(dx, dy);
         if(nextCell.getActor() != null){
             nextCell.getActor().takeDamage(actual_damage, this);
@@ -20,9 +20,9 @@ public boolean move(int dx, int dy) {
             getCell().setActor(null);
             nextCell.setActor(this);
             setCell(nextCell);
-            return true;
+
         }
-        return false;
+
 }
 
     public Monsters(Cell cell) {

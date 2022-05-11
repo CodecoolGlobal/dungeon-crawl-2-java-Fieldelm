@@ -72,4 +72,8 @@ public class GameMap {
             }
         }
     }
+
+    public void openDoor(int x, int y){
+        cells[x][y].setType(CellType.ENTRANCE);
+    }
 }

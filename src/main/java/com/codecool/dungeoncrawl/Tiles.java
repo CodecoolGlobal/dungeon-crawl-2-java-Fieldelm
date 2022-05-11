@@ -46,6 +46,7 @@ public class Tiles {
         tileMap.put("fence", new Tile(0, 3));
         tileMap.put("magicWand", new Tile(0, 26));
         tileMap.put("magicKey", new Tile(16, 23));
+        tileMap.put("closed_door", new Tile(3,3));
 
     }
 

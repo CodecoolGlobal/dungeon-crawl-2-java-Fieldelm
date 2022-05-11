@@ -95,7 +95,7 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new Troll(cell);
                             break;
-                        case ',':
+                        case 'W':
                             cell.setType(CellType.FLOOR);
                             new MagicWand(cell);
                             break;
@@ -103,6 +103,10 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new MagicKey(cell);
                             break;
+                        case 'C':
+                            cell.setType(CellType.CLOSED_DOOR);
+                            break;
+
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

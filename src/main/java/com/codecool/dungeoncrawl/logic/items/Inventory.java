@@ -31,6 +31,14 @@ public boolean hasMagicWand(){
     }
     return false;
 }
+    public boolean hasMagicKey(){
+        for (Item key : items.keySet()) {
+            if (Objects.equals(key.getTileName(), "magicKey")) return true;
+        }
+        return false;
+    }
+
+
 
     public void pickOutItem(Item item){
         if (items.containsKey(item)){

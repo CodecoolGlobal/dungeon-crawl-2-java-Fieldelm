@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
+import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.items.Inventory;
 import javafx.scene.control.Label;
 
@@ -14,13 +15,12 @@ public class Player extends Actor {
         this.messageLabel = messageLabel;
         actual_damage = 5;
         this.itemInventory = new Inventory();
-
     }
 
     public void pickUpItem(){
        itemInventory.addItem(this.getCell().getItem());
        this.getCell().setItem(null);
-
+       displayGotMagicWand();
     }
 
     public Inventory getItemInventory(){
@@ -31,14 +31,22 @@ public class Player extends Actor {
         return "player";
     }
 
+    public void displayGotMagicWand(){
+        if (itemInventory.hasMagicWand()){
+            setLabelText("Great! \nNow you are a true \nwizard");
+        }
+    }
+
     @Override
-    public boolean move(int dx, int dy) {
+    public void move(int dx, int dy, GameMap map) {
+
         Cell nextCell = getCell().getNeighbor(dx, dy);
         if(nextCell.getActor() != null){
             if(itemInventory.hasMagicWand()) {
                 nextCell.getActor().takeDamage(actual_damage, this);
+
             }else{
-                messageLabel.setText("You don't have \n your magic wand.");
+                setLabelText("You don't have \nyour magic wand.");
             }
         }
         else if(nextCell.getType() == CellType.FLOOR || nextCell.getType() == CellType.GRASS
@@ -46,12 +54,16 @@ public class Player extends Actor {
             getCell().setActor(null);
             nextCell.setActor(this);
             setCell(nextCell);
-            return true;
+        }else if (nextCell.getType() == CellType.CLOSED_DOOR){
+            if(itemInventory.hasMagicKey()){
+                map.openDoor(nextCell.getX(), nextCell.getY());
+            }else{
+                setLabelText("You don't have\nthe magic key.");
+            }
         }
-        return false;
+
     }
 
-    public static String noMagicWand(){
-        return "You don't have your magic wand, pick it up or you will die";
-    }
+    public void setLabelText(String text){
+    messageLabel.setText(text);}
 }
