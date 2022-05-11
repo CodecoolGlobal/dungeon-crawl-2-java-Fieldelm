@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic.items;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Inventory {
     private HashMap <Item, Integer> items;
@@ -25,7 +26,10 @@ public class Inventory {
         }
     }
 public boolean hasMagicWand(){
-        return items.containsKey("magicWand");
+    for (Item key : items.keySet()) {
+        if (Objects.equals(key.getTileName(), "magicWand")) return true;
+    }
+    return false;
 }
 
     public void pickOutItem(Item item){

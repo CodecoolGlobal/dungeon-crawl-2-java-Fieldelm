@@ -41,7 +41,8 @@ public class Player extends Actor {
                 messageLabel.setText("You don't have \n your magic wand.");
             }
         }
-        else if(nextCell.getType() == CellType.FLOOR){
+        else if(nextCell.getType() == CellType.FLOOR || nextCell.getType() == CellType.GRASS
+                || nextCell.getType() == CellType.LESSFLOOR || nextCell.getType() == CellType.ENTRANCE){
             getCell().setActor(null);
             nextCell.setActor(this);
             setCell(nextCell);
