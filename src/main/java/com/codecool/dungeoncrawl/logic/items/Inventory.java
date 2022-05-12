@@ -19,12 +19,21 @@ public class Inventory {
     }}
 
 
-public boolean hasMagicItem(String item){
-    for (String key : items.keySet()) {
-        if (Objects.equals(key, item)) return true;
+    public boolean hasMagicItem(String item){
+        for (String key : items.keySet()) {
+            if (Objects.equals(key, item)) return true;
+        }
+        return false;
     }
-    return false;
-}
+
+    public boolean hasFriends(){
+        boolean ron = false, hermione = false;
+        for (String key : items.keySet()) {
+            if (Objects.equals(key, "ron")) ron = true;
+            else if(Objects.equals(key, "hermione")) hermione = true;
+        }
+        return ron && hermione;
+    }
 
     public void useItem(String itemName){
         if(items.get(itemName) > 1){

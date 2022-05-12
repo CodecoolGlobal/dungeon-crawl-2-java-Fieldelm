@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Dementor;
 import com.codecool.dungeoncrawl.logic.actors.Troll;
 import com.codecool.dungeoncrawl.logic.items.*;
+import com.codecool.dungeoncrawl.logic.items.Character;
 import javafx.scene.control.Label;
 
 import java.io.InputStream;
@@ -125,6 +126,14 @@ public class MapLoader {
                             break;
                         case '$':
                             cell.setType(CellType.CROSS_WATER);
+                            break;
+                        case 'R':
+                            cell.setType(CellType.FLOOR);
+                            new Character(cell, "ron");
+                            break;
+                        case 'H':
+                            cell.setType(CellType.FLOOR);
+                            new Character(cell, "hermione");
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
