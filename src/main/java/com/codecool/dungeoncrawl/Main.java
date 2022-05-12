@@ -88,6 +88,10 @@ public class Main extends Application {
                 map.monsterMove();
                 refresh();
                 break;
+            case SPACE:
+                map.getPlayer().pickUpItem();
+                break;
+
 
         }
     }

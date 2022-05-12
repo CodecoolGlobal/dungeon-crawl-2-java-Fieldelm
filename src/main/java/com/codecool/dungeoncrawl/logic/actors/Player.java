@@ -4,6 +4,8 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.items.Inventory;
+import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.MagicKey;
 import javafx.scene.control.Label;
 
 public class Player extends Actor {
@@ -18,9 +20,14 @@ public class Player extends Actor {
     }
 
     public void pickUpItem(){
-       itemInventory.addItem(this.getCell().getItem());
-       this.getCell().setItem(null);
-       displayGotMagicWand();
+       if (this.getCell().getItem() != null) {
+           itemInventory.addItem(this.getCell().getItem());
+           this.getCell().setItem(null);
+           setLabelText("");
+       }else {
+           setLabelText("There is nothing");
+       }
+
     }
 
     public Inventory getItemInventory(){
@@ -31,11 +38,6 @@ public class Player extends Actor {
         return "player";
     }
 
-    public void displayGotMagicWand(){
-        if (itemInventory.hasMagicWand()){
-            setLabelText("Great! \nNow you are a true \nwizard");
-        }
-    }
 
     @Override
     public void move(int dx, int dy, GameMap map) {
@@ -57,7 +59,9 @@ public class Player extends Actor {
             setCell(nextCell);
         }else if (nextCell.getType() == CellType.CLOSED_DOOR){
             if(itemInventory.hasMagicKey()){
+                itemInventory.useItem("magicKey");
                 map.openDoor(nextCell.getX(), nextCell.getY());
+
             }else{
                 setLabelText("You don't have\nthe magic key.");
             }
@@ -67,4 +71,6 @@ public class Player extends Actor {
 
     public void setLabelText(String text){
     messageLabel.setText(text);}
+
+
 }
