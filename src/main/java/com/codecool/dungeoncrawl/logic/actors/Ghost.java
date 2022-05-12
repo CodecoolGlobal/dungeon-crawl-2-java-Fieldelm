@@ -14,7 +14,7 @@ public class Ghost extends Monsters{
 
     public void ghostMove(GameMap gameMap) {
         if (gameMap.getHeight() > this.getCell().getX()+3 && gameMap.getWidth()+3 > this.getCell().getY() && this.getCell().getX()-3 >= 0 && this.getCell().getY()-3 >= 0 )
-            this.move(GameMap.randomInt(-3,3),GameMap.randomInt(-3,3),gameMap);
+            this.move(GameMap.randomInt(-3,3),GameMap.randomInt(-3,3));
     }
 
 

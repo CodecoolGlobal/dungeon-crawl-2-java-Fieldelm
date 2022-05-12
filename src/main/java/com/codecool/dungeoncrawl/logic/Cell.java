@@ -59,9 +59,11 @@ public class Cell implements Drawable {
     public boolean isSteppable(){
         return MOVABLE_CELL_TYPES.contains(this.type);
     }
+
     public boolean isClosedDoor(){
         return this.type == CellType.CLOSED_DOOR;
     }
+
     @Override
     public String getTileName() {
         return type.getTileName();
