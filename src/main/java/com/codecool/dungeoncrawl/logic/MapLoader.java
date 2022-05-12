@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Dementor;
 import com.codecool.dungeoncrawl.logic.actors.Troll;
+import com.codecool.dungeoncrawl.logic.items.Campfire;
 import com.codecool.dungeoncrawl.logic.items.MagicKey;
 import com.codecool.dungeoncrawl.logic.items.MagicWand;
 import javafx.scene.control.Label;
@@ -57,6 +58,7 @@ public class MapLoader {
                             break;
                         case 'c':
                             cell.setType(CellType.CAMPFIRE);
+                            new Campfire(cell);
                             break;
                         case 'f':
                             cell.setType(CellType.FENCE);

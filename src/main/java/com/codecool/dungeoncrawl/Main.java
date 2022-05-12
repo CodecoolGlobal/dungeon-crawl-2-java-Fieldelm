@@ -16,8 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
-import java.awt.*;
-
 public class Main extends Application {
     static final int CONST_10 = 10;
     Label message = new Label();
@@ -66,30 +64,22 @@ public class Main extends Application {
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1, map);
-                map.repositionCenter();
-                map.monsterMove();
-                refresh();
+
                 break;
             case DOWN:
                 map.getPlayer().move(0, 1, map);
-                map.repositionCenter();
-                map.monsterMove();
-                refresh();
                 break;
             case LEFT:
                 map.getPlayer().move(-1, 0, map);
-                map.repositionCenter();
-                map.monsterMove();
-                refresh();
                 break;
             case RIGHT:
                 map.getPlayer().move(1,0, map);
-                map.repositionCenter();
-                map.monsterMove();
-                refresh();
                 break;
 
         }
+        map.repositionCenter();
+        map.actAllMapCreature();
+        refresh();
     }
 
     private void refresh() {

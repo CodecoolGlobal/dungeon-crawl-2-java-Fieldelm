@@ -36,6 +36,11 @@ public class Player extends Actor {
             setLabelText("Great! \nNow you are a true \nwizard");
         }
     }
+    public void increaseHealth(int health){
+        for(int i = 0; i< health; i++){
+            this.incraseHealth();
+        }
+    }
 
     @Override
     public void move(int dx, int dy, GameMap map) {
