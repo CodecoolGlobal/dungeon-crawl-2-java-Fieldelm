@@ -29,7 +29,7 @@ public class Tiles {
         tileMap.put("floor", new Tile(2, 0));
         tileMap.put("lessfloor", new Tile(1, 0));
         tileMap.put("player", new Tile(27, 0));
-        tileMap.put("dementor", new Tile(27, 6));
+        tileMap.put("dementor", new Tile(24, 8));
         tileMap.put("ghost", new Tile(27, 8));
         tileMap.put("troll", new Tile(29, 2));
         tileMap.put("tree", new Tile(0, 1));
@@ -45,6 +45,9 @@ public class Tiles {
         tileMap.put("campfire", new Tile(14, 10));
         tileMap.put("fence", new Tile(0, 3));
         tileMap.put("magicWand", new Tile(0, 26));
+        tileMap.put("skull", new Tile(0, 15));
+        tileMap.put("loot", new Tile(5, 15));
+
 
     }
 

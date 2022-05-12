@@ -59,8 +59,14 @@ public class MapLoader {
                         case 'l':
                             cell.setType(CellType.LESSFLOOR);
                             break;
+                        case 'y':
+                        cell.setType(CellType.LOOT);
+                            break;
                         case 's':
                             cell.setType(CellType.STONEFENCE);
+                            break;
+                        case 'k':
+                            cell.setType(CellType.SKULL);
                             break;
                         case 't':
                             cell.setType(CellType.STONEFENCETWO);
