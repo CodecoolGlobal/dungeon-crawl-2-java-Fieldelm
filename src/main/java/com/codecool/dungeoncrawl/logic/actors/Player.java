@@ -21,7 +21,7 @@ public class Player extends Actor {
 
     public void pickUpItem(){
        if (this.getCell().getItem() != null) {
-           itemInventory.addItem(this.getCell().getItem());
+           itemInventory.addItem(this.getCell().getItem().getTileName());
            this.getCell().setItem(null);
            setLabelText("");
        }else {
@@ -64,8 +64,9 @@ public class Player extends Actor {
             setCell(nextCell);
         }else if (nextCell.getType() == CellType.CLOSED_DOOR){
             if(itemInventory.hasMagicKey()){
-                itemInventory.useItem("magicKey");
+
                 map.openDoor(nextCell.getX(), nextCell.getY());
+                itemInventory.useItem("magicKey");
 
             }else{
                 setLabelText("You don't have\nthe magic key.");
