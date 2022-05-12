@@ -38,6 +38,11 @@ public class Player extends Actor {
         return "player";
     }
 
+    public void increaseHealth(int health){
+        for(int i = 0; i< health; i++){
+            this.incraseHealth();
+        }
+    }
 
     @Override
     public void move(int dx, int dy, GameMap map) {
