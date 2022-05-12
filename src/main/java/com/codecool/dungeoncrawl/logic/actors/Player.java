@@ -56,13 +56,11 @@ public class Player extends Actor {
                 setLabelText("You don't have \nyour magic wand.");
             }
         }
-        else if(nextCell.getType() == CellType.FLOOR || nextCell.getType() == CellType.GRASS
-                || nextCell.getType() == CellType.LESSFLOOR || nextCell.getType() == CellType.ENTRANCE
-                || nextCell.getType() == CellType.ROOM){
+        else if(nextCell.isSteppable()){
             getCell().setActor(null);
             nextCell.setActor(this);
             setCell(nextCell);
-        }else if (nextCell.getType() == CellType.CLOSED_DOOR){
+        }else if (nextCell.isClosedDoor()){
             if(itemInventory.hasMagicKey()){
                 itemInventory.useItem("magicKey");
                 map.openDoor(nextCell.getX(), nextCell.getY());
