@@ -54,7 +54,7 @@ public class Player extends Actor {
 
         Cell nextCell = getCell().getNeighbor(dx, dy);
         if(nextCell.getActor() != null){
-            if(itemInventory.hasMagicWand()) {
+            if(itemInventory.hasMagicItem("magicWand")) {
                 nextCell.getActor().takeDamage(this.getActual_damage(), this);
 
             }else{
@@ -66,7 +66,7 @@ public class Player extends Actor {
             nextCell.setActor(this);
             setCell(nextCell);
         }else if (nextCell.isClosedDoor()){
-            if(itemInventory.hasMagicKey()){
+            if(itemInventory.hasMagicItem("magicKey")){
 
                 getCell().getGameMap().openDoor(nextCell.getX(), nextCell.getY());
                 itemInventory.useItem("magicKey");

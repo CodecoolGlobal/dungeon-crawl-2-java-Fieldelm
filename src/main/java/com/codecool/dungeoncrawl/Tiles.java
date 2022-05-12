@@ -48,9 +48,11 @@ public class Tiles {
         tileMap.put("magicWand", new Tile(0, 26));
         tileMap.put("skull", new Tile(0, 15));
         tileMap.put("loot", new Tile(5, 15));
-
         tileMap.put("magicKey", new Tile(16, 23));
         tileMap.put("closed_door", new Tile(3,3));
+        tileMap.put("Broom", new Tile(15, 18));
+        tileMap.put("BB's E. Flavor", new Tile(28,25 ));
+
 
     }
 

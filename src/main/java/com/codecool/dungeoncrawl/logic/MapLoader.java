@@ -4,9 +4,7 @@ import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Dementor;
 import com.codecool.dungeoncrawl.logic.actors.Troll;
-import com.codecool.dungeoncrawl.logic.items.Campfire;
-import com.codecool.dungeoncrawl.logic.items.MagicKey;
-import com.codecool.dungeoncrawl.logic.items.MagicWand;
+import com.codecool.dungeoncrawl.logic.items.*;
 import javafx.scene.control.Label;
 
 import java.io.InputStream;
@@ -117,7 +115,14 @@ public class MapLoader {
                         case 'C':
                             cell.setType(CellType.CLOSED_DOOR);
                             break;
-
+                        case 'B':
+                            cell.setType(CellType.FLOOR);
+                            new Broom(cell);
+                            break;
+                        case 'D':
+                            cell.setType(CellType.FLOOR);
+                            new BertieBottsEveryFlavorBeans(cell);
+                            break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

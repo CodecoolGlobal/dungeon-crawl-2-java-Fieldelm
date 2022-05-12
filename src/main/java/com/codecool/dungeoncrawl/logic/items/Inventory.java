@@ -19,18 +19,18 @@ public class Inventory {
     }}
 
 
-public boolean hasMagicWand(){
+public boolean hasMagicItem(String item){
     for (String key : items.keySet()) {
-        if (Objects.equals(key, "magicWand")) return true;
+        if (Objects.equals(key, item)) return true;
     }
     return false;
 }
-    public boolean hasMagicKey(){
+  /*  public boolean hasMagicKey(){
         for (String key : items.keySet()) {
             if (Objects.equals(key, "magicKey")) return true;
         }
         return false;
-    }
+    }*/
 
     public void useItem(String itemName){
         if(items.get(itemName) > 1){
