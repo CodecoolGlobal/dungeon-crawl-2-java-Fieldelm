@@ -27,6 +27,7 @@ public class Cell implements Drawable {
         MOVABLE_CELL_TYPES.add(CellType.LESSFLOOR);
         MOVABLE_CELL_TYPES.add(CellType.ENTRANCE);
         MOVABLE_CELL_TYPES.add(CellType.ROOM);
+        MOVABLE_CELL_TYPES.add(CellType.CROSS_WATER);
     }
     public CellType getType() {
         return type;
@@ -54,8 +55,8 @@ public class Cell implements Drawable {
 
     public Cell getNeighbor(int dx, int dy) {
         return gameMap.getCell(x + dx, y + dy);
-
     }
+
     public boolean isSteppable(){
         return MOVABLE_CELL_TYPES.contains(this.type);
     }
@@ -63,6 +64,10 @@ public class Cell implements Drawable {
     public boolean isClosedDoor(){
         return this.type == CellType.CLOSED_DOOR;
     }
+
+    public boolean isWater(){return this.type == CellType.WATER;}
+
+    public boolean isCrossedWater(){return this.type == CellType.CROSS_WATER;}
 
     @Override
     public String getTileName() {
