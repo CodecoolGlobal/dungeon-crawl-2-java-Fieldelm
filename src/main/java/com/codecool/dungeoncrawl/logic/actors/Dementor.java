@@ -10,7 +10,8 @@ public class Dementor extends Monsters {
 
 
     @Override
-    public void monsterAct(GameMap map) {
+    public void monsterAct() {
+        GameMap map = this.getCell().getGameMap();
         if (Math.abs(map.getPlayer().getCell().getX() - this.getCell().getX()) < 2 && Math.abs(map.getPlayer().getCell().getY() - this.getCell().getY()) < 2){
             map.getPlayer().takeDamage(this.getActual_damage(),this);
             incraseHealth();

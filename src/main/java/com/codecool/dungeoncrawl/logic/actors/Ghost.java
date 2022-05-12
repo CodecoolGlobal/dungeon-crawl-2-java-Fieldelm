@@ -8,13 +8,20 @@ import java.util.Random;
 public class Ghost extends Monsters{
 
     @Override
-    public void monsterAct(GameMap map) {
-    ghostMove(map);
+    public void monsterAct() {
+        ghostMove();
     }
 
-    public void ghostMove(GameMap gameMap) {
-        if (gameMap.getHeight() > this.getCell().getX()+3 && gameMap.getWidth()+3 > this.getCell().getY() && this.getCell().getX()-3 >= 0 && this.getCell().getY()-3 >= 0 )
-            this.move(GameMap.randomInt(-3,3),GameMap.randomInt(-3,3),gameMap);
+    public void ghostMove() {
+        GameMap gameMap = this.getCell().getGameMap();
+        int height = gameMap.getHeight();
+        int width = gameMap.getWidth();
+        int x = this.getX();
+        int y = this.getY();
+        int newX = GameMap.randomInt(-2,2);
+        int newY = GameMap.randomInt(-2,2);
+        if (height > x+newX+1 && width > y+newY+1  && x-newX-1 > 0 && y-newY-1 > 0 )
+            this.move(newX, newY);
     }
 
 

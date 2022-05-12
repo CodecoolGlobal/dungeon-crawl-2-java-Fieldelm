@@ -6,7 +6,7 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 
 public abstract class Monsters extends Actor {
 
-    public abstract void monsterAct(GameMap map);
+    public abstract void monsterAct();
 
 @Override
 public void move(int dx, int dy) {

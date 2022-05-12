@@ -5,6 +5,8 @@ import com.codecool.dungeoncrawl.logic.actors.Monsters;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.ActableItem;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import java.util.Random;
@@ -73,7 +75,7 @@ public class GameMap {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 if (cells[x][y].getActor() instanceof Monsters) {
-                    ((Monsters) cells[x][y].getActor()).monsterAct(this);
+                    ((Monsters) cells[x][y].getActor()).monsterAct();
                 }
                 if( cells[x][y].getItem() instanceof ActableItem){
                     ((ActableItem) cells[x][y].getItem()).act(this);
@@ -88,6 +90,25 @@ public class GameMap {
 
     static public int randomInt(int min, int max){
         Random random = new Random();
+        int difference = 0;
+        if(min < 0){
+            difference = Math.abs(min);
+            return random.nextInt(max + difference) - difference;
+        }
+
         return random.nextInt(max - min) + min;
+    }
+
+    public List<Monsters> getMonsters(){
+        List<Monsters> monsters = new ArrayList<>();
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if(cells[x][y].getActor() != null)
+                    if(cells[x][y].getActor() instanceof Monsters){
+                        monsters.add((Monsters)cells[x][y].getActor());
+                    }
+            }
+        }
+        return monsters;
     }
 }

@@ -9,8 +9,8 @@ import java.util.Random;
 public class Troll extends Monsters{
 
     @Override
-    public void monsterAct(GameMap map) {
-    trollMove(map);
+    public void monsterAct() {
+    trollMove();
     }
 
     public Troll(Cell cell) {
@@ -22,7 +22,7 @@ public class Troll extends Monsters{
         return "troll";
     }
 
-    public void trollMove(GameMap gameMap){
+    public void trollMove(){
         Random random = new Random();
         switch (random.nextInt(4)){
             case 0: this.move(0,-1);
