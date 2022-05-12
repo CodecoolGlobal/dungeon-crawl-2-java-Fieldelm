@@ -4,6 +4,8 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.items.Inventory;
+import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.MagicKey;
 import javafx.scene.control.Label;
 
 public class Player extends Actor {
@@ -22,9 +24,9 @@ public class Player extends Actor {
            itemInventory.addItem(this.getCell().getItem());
            this.getCell().setItem(null);
            setLabelText("");
+       }else {
+           setLabelText("There is nothing");
        }
-       setLabelText("There is nothing");
-
 
     }
 
@@ -57,7 +59,9 @@ public class Player extends Actor {
             setCell(nextCell);
         }else if (nextCell.getType() == CellType.CLOSED_DOOR){
             if(itemInventory.hasMagicKey()){
+                itemInventory.useItem("magicKey");
                 map.openDoor(nextCell.getX(), nextCell.getY());
+
             }else{
                 setLabelText("You don't have\nthe magic key.");
             }

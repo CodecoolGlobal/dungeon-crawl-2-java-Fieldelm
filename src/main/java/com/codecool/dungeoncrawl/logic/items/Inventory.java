@@ -17,14 +17,7 @@ public class Inventory {
         items.put(item, 1);
     }
 
-    public void useItem(Item item){
-        if (items.containsKey(item)){
-            System.out.println("You are using " + item.getTileName()+ " .");
-        }
-        else{
-            System.out.println("You don't have" + item.getTileName()+ " to use.");
-        }
-    }
+
 public boolean hasMagicWand(){
     for (Item key : items.keySet()) {
         if (Objects.equals(key.getTileName(), "magicWand")) return true;
@@ -38,20 +31,18 @@ public boolean hasMagicWand(){
         return false;
     }
 
-
-
-    public void pickOutItem(Item item){
-        if (items.containsKey(item)){
-            if (items.get(item) >1){
-                items.put(item, items.get(item) -1);
-            }else {
-                items.remove(item);
+    public void useItem(String itemName){
+        for (Item key : items.keySet()){
+            if(Objects.equals(key.getTileName(), itemName)){
+                if(items.get(key) > 1){
+                    items.put(key, items.get(key) -1);
+                }else{
+                    items.remove(key);
+                }
             }
-            }
-        else{
-            System.out.println("No such item in inventory");
         }
     }
+
 
     @Override
     public String toString() {
