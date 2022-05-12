@@ -100,6 +100,9 @@ public class Main extends Application {
             map.repositionCenter();
             map.actAllMapCreature();
             refresh();
+            if(map.getPlayer().hasFriends()){
+                gameWonDisplay();
+            }
             if (map.getPlayer().getHealth() < 0) {
                 gameOverDisplay();
             }
@@ -126,10 +129,10 @@ public class Main extends Application {
                 }
             }
         }
-        healthLabel.setText("Health:  " + map.getPlayer().getHealth());
+        healthLabel.setText("Health:  " + map.getPlayer().getHealth() + "/" + map.getPlayer().getMaxHealth());
         damageLabel.setText("Damage:  " + map.getPlayer().getActual_damage());
         inventory.setText(map.getPlayer().getItemInventory().toString());
-        stepSound();
+        //stepSound();
     }
     public void gameOverDisplay(){
         isGameOver = true;
@@ -138,6 +141,13 @@ public class Main extends Application {
         gameOver.setFont(myFont);
         refresh();
 
+    }
+    public void gameWonDisplay(){
+        isGameOver = true;
+        Font myFont = new Font("Serif",  22);
+        gameOver.setText("Congratulation!");
+        gameOver.setFont(myFont);
+        refresh();
     }
     public void stepSound(){
         Media stepMedia = new Media(new File("src/main/resources/step.wav").toURI().toString());

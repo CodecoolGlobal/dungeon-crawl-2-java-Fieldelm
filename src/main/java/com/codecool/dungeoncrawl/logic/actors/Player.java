@@ -18,6 +18,8 @@ public class Player extends Actor {
     private Inventory itemInventory;
     private Label messageLabel;
 
+    private final int maxHealth = 30;
+
     public Player(Cell cell, Label messageLabel) {
         super(cell);
         this.messageLabel = messageLabel;
@@ -62,7 +64,8 @@ public class Player extends Actor {
 
     public void increaseHealth(int health){
         for(int i = 0; i< health; i++){
-            this.incraseHealth();
+            if(getHealth() < maxHealth)
+                this.incraseHealth();
         }
     }
 
@@ -102,7 +105,14 @@ public class Player extends Actor {
     }
 
     public void setLabelText(String text){
-    messageLabel.setText(text);}
+        messageLabel.setText(text);
+    }
 
+    public int getMaxHealth(){
+        return maxHealth;
+    }
 
+    public boolean hasFriends(){
+        return itemInventory.hasFriends();
+    }
 }
