@@ -47,7 +47,7 @@ public boolean hasMagicWand(){
         items.forEach((item, amount) -> {
             inventoryString.append(item).append(": ").append(amount).append("\n");
         });
-        return (items.size() >0 ? inventoryString.toString(): "No items in inventory");
+        return (items.size() >0 ? inventoryString.toString(): "No items \nin inventory");
     }
 
 

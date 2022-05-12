@@ -13,6 +13,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
@@ -36,6 +37,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Font myFont = new Font("Serif",  18);
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
@@ -45,6 +47,10 @@ public class Main extends Application {
         ui.add(pickUpItem, 0, 2 );
         ui.add(inventory, 0, 3);
         ui.add(message, 0, 4);
+        healthLabel.setFont(myFont);
+        message.setFont(myFont);
+        inventory.setFont(myFont);
+
 
         BorderPane borderPane = new BorderPane();
 
