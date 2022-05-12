@@ -4,6 +4,10 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.GameMap;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
+import java.io.File;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
@@ -55,4 +59,5 @@ public abstract class Actor implements Drawable {
             actor.takeDamage(actual_damage, this);
         }
     }
+
 }
