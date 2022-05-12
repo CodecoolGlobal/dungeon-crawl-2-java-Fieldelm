@@ -18,9 +18,14 @@ public class Player extends Actor {
     }
 
     public void pickUpItem(){
-       itemInventory.addItem(this.getCell().getItem());
-       this.getCell().setItem(null);
-       displayGotMagicWand();
+       if (this.getCell().getItem() != null) {
+           itemInventory.addItem(this.getCell().getItem());
+           this.getCell().setItem(null);
+           setLabelText("");
+       }
+       setLabelText("There is nothing");
+
+
     }
 
     public Inventory getItemInventory(){
@@ -31,11 +36,6 @@ public class Player extends Actor {
         return "player";
     }
 
-    public void displayGotMagicWand(){
-        if (itemInventory.hasMagicWand()){
-            setLabelText("Great! \nNow you are a true \nwizard");
-        }
-    }
 
     @Override
     public void move(int dx, int dy, GameMap map) {
@@ -67,4 +67,6 @@ public class Player extends Actor {
 
     public void setLabelText(String text){
     messageLabel.setText(text);}
+
+
 }
