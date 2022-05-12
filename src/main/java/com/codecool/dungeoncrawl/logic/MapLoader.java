@@ -123,6 +123,9 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new BertieBottsEveryFlavorBeans(cell);
                             break;
+                        case '$':
+                            cell.setType(CellType.CROSS_WATER);
+                            break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

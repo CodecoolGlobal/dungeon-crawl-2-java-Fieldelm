@@ -51,7 +51,6 @@ public class Player extends Actor {
 
     @Override
     public void move(int dx, int dy) {
-
         Cell nextCell = getCell().getNeighbor(dx, dy);
         if(nextCell.getActor() != null){
             if(itemInventory.hasMagicItem("magicWand")) {
@@ -73,6 +72,12 @@ public class Player extends Actor {
 
             }else{
                 setLabelText("You don't have\nthe magic key.");
+            }
+        }else if (nextCell.isWater()){
+            if(itemInventory.hasMagicItem("Broom")){
+                getCell().getGameMap().crossWater(nextCell.getX(), nextCell.getY());
+            }else{
+                setLabelText("You need\na broom to\n cross.");
             }
         }
 

@@ -86,6 +86,14 @@ public class GameMap {
         cells[x][y].setType(CellType.ENTRANCE);
     }
 
+    public void crossWater(int x, int y){
+        cells[x][y].setType(CellType.CROSS_WATER);
+    }
+
+    public void remakeWater(int x, int y){
+        cells[x][y].setType(CellType.WATER);
+    }
+
     static public int randomInt(int min, int max){
         Random random = new Random();
         return random.nextInt(max - min) + min;

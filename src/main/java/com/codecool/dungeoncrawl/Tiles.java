@@ -52,6 +52,7 @@ public class Tiles {
         tileMap.put("closed_door", new Tile(3,3));
         tileMap.put("Broom", new Tile(15, 18));
         tileMap.put("BB's E. Flavor", new Tile(28,25 ));
+        tileMap.put("crossWater", new Tile(1,9));
 
 
     }

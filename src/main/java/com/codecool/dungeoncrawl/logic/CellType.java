@@ -21,7 +21,8 @@ public enum CellType {
     CLOSED_DOOR("closed_door"),
     ROOM("room"),
     SKULL("skull"),
-    LOOT("loot");
+    LOOT("loot"),
+    CROSS_WATER("crossWater");
 
     private final String tileName;
 
