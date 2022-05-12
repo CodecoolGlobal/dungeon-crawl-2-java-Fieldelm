@@ -10,7 +10,7 @@ public class Troll extends Monsters{
 
     @Override
     public void monsterAct(GameMap map) {
-    trollMove();
+    trollMove(map);
     }
 
     public Troll(Cell cell) {
@@ -22,16 +22,16 @@ public class Troll extends Monsters{
         return "troll";
     }
 
-    public void trollMove(){
+    public void trollMove(GameMap gameMap){
         Random random = new Random();
         switch (random.nextInt(4)){
-            case 0: this.move(0,-1);
+            case 0: this.move(0,-1, gameMap);
                 break;
-            case 1: this.move(0,1);
+            case 1: this.move(0,1, gameMap);
                 break;
-            case 2: this.move(-1,0);
+            case 2: this.move(-1,0, gameMap);
                 break;
-            case 3: this.move(1,0);
+            case 3: this.move(1,0, gameMap);
                 break;
         }
     }

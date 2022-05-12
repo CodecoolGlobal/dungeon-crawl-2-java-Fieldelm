@@ -15,21 +15,7 @@ public abstract class Actor implements Drawable {
         this.cell.setActor(this);
     }
 
-    public void move(int dx, int dy, GameMap map) {
-        /*Cell nextCell = cell.getNeighbor(dx, dy);
-        if(nextCell.getActor() != null){
-            nextCell.getActor().takeDamage(actual_damage, this);
-        }
-        else if(nextCell.getType() == CellType.FLOOR || nextCell.getType() == CellType.GRASS
-                || nextCell.getType() == CellType.LESSFLOOR || nextCell.getType() == CellType.ENTRANCE){
-            cell.setActor(null);
-            nextCell.setActor(this);
-            cell = nextCell;
-            return true;
-        }
-        return false;*/
-
-    }
+    public abstract void move(int dx, int dy, GameMap map);
 
     public int getHealth() {
         return health;

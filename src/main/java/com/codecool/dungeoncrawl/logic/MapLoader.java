@@ -108,7 +108,7 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new MagicWand(cell);
                             break;
-                        case 'k':
+                        case 'K':
                             cell.setType(CellType.FLOOR);
                             new MagicKey(cell);
                             break;
