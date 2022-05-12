@@ -7,16 +7,17 @@ public class Ghost extends Monsters{
 
     @Override
     public void monsterAct(GameMap map) {
+    ghostMove();
     }
 
-    @Override
-    public  void directionCalculator(){
+    public  void ghostMove(){
+
     }
 
 
     public Ghost(Cell cell) {
         super(cell);
-        actual_damage = 2;
+        actual_damage = 3;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
+import java.util.Random;
 
 public class Dementor extends Monsters {
 
@@ -13,14 +14,10 @@ public class Dementor extends Monsters {
         if (Math.abs(map.getPlayer().getCell().getX() - this.getCell().getX()) < 2 && Math.abs(map.getPlayer().getCell().getY() - this.getCell().getY()) < 2){
             map.getPlayer().takeDamage(actual_damage,this);
             incraseHealth();
+
         }
     }
 
-
-    @Override
-    public  void directionCalculator(){
-
-    }
 
     public Dementor(Cell cell) {
         super(cell);
