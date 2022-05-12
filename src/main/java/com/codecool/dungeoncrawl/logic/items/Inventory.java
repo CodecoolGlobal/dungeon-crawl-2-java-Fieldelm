@@ -12,11 +12,11 @@ public class Inventory {
 
     public void addItem(String itemName){
         if (items.containsKey(itemName)) {
-            int x = items.get(itemName) + 1;
-            items.replace(itemName, x);
-        }
+            //int x = items.get(itemName) + 1;
+            items.replace(itemName, items.get(itemName)+1);
+           }else{
         items.put(itemName, 1);
-    }
+    }}
 
 
 public boolean hasMagicWand(){
