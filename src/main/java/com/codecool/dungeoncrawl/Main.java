@@ -91,8 +91,6 @@ public class Main extends Application {
             case SPACE:
                 map.getPlayer().pickUpItem();
                 break;
-
-
         }
     }
 
