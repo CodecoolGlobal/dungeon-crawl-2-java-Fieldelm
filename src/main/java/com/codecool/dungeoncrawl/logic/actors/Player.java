@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.items.Inventory;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.MagicKey;
+import com.codecool.dungeoncrawl.logic.items.MagicWand;
 import javafx.scene.control.Label;
 
 public class Player extends Actor {
@@ -15,13 +16,17 @@ public class Player extends Actor {
     public Player(Cell cell, Label messageLabel) {
         super(cell);
         this.messageLabel = messageLabel;
-        actual_damage = 5;
+        this.setActual_damage(5);
         this.itemInventory = new Inventory();
     }
 
     public void pickUpItem(){
        if (this.getCell().getItem() != null) {
-           itemInventory.addItem(this.getCell().getItem().getTileName());
+           Item item = this.getCell().getItem();
+           itemInventory.addItem(item.getTileName());
+           if(item instanceof MagicWand){
+               this.setActual_damage(((MagicWand) item).getDamage());
+           }
            this.getCell().setItem(null);
            setLabelText("");
        }else {
@@ -45,12 +50,12 @@ public class Player extends Actor {
     }
 
     @Override
-    public void move(int dx, int dy, GameMap map) {
+    public void move(int dx, int dy) {
 
         Cell nextCell = getCell().getNeighbor(dx, dy);
         if(nextCell.getActor() != null){
             if(itemInventory.hasMagicWand()) {
-                nextCell.getActor().takeDamage(actual_damage, this);
+                nextCell.getActor().takeDamage(this.getActual_damage(), this);
 
             }else{
                 setLabelText("You don't have \nyour magic wand.");
@@ -63,7 +68,7 @@ public class Player extends Actor {
         }else if (nextCell.isClosedDoor()){
             if(itemInventory.hasMagicKey()){
 
-                map.openDoor(nextCell.getX(), nextCell.getY());
+                getCell().getGameMap().openDoor(nextCell.getX(), nextCell.getY());
                 itemInventory.useItem("magicKey");
 
             }else{

@@ -5,6 +5,8 @@ import com.codecool.dungeoncrawl.logic.actors.Monsters;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.ActableItem;
 
+import java.util.Random;
+
 public class GameMap {
     private final int width;
     private final int height;
@@ -80,5 +82,10 @@ public class GameMap {
 
     public void openDoor(int x, int y){
         cells[x][y].setType(CellType.ENTRANCE);
+    }
+
+    static public int randomInt(int min, int max){
+        Random random = new Random();
+        return random.nextInt(max - min) + min;
     }
 }

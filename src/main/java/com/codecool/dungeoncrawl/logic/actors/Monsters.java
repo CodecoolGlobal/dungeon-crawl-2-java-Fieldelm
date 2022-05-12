@@ -9,19 +9,16 @@ public abstract class Monsters extends Actor {
     public abstract void monsterAct(GameMap map);
 
 @Override
-public void move(int dx, int dy, GameMap map) {
+public void move(int dx, int dy) {
         Cell nextCell = getCell().getNeighbor(dx, dy);
         if(nextCell.getActor() != null){
-            nextCell.getActor().takeDamage(actual_damage, this);
+            nextCell.getActor().takeDamage(this.getActual_damage(), this);
         }
-        else if(nextCell.getType() == CellType.FLOOR || nextCell.getType() == CellType.GRASS
-                || nextCell.getType() == CellType.LESSFLOOR || nextCell.getType() == CellType.ENTRANCE){
+        else if(nextCell.isSteppable()){
             getCell().setActor(null);
             nextCell.setActor(this);
             setCell(nextCell);
-
         }
-
 }
 
     public Monsters(Cell cell) {

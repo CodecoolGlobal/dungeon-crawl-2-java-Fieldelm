@@ -17,7 +17,7 @@ public class Ghost extends Monsters{
 
     public Ghost(Cell cell) {
         super(cell);
-        actual_damage = 3;
+        this.setActual_damage(3);
     }
 
     @Override
