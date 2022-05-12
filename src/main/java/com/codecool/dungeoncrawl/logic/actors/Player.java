@@ -50,7 +50,8 @@ public class Player extends Actor {
             }
         }
         else if(nextCell.getType() == CellType.FLOOR || nextCell.getType() == CellType.GRASS
-                || nextCell.getType() == CellType.LESSFLOOR || nextCell.getType() == CellType.ENTRANCE){
+                || nextCell.getType() == CellType.LESSFLOOR || nextCell.getType() == CellType.ENTRANCE
+                || nextCell.getType() == CellType.ROOM){
             getCell().setActor(null);
             nextCell.setActor(this);
             setCell(nextCell);

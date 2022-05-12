@@ -37,6 +37,9 @@ public class MapLoader {
                         case 'r':
                             cell.setType(CellType.TREE);
                             break;
+                        case '*':
+                            cell.setType(CellType.ROOM);
+                            break;
                         case 'e':
                             cell.setType(CellType.TREETWO);
                             break;

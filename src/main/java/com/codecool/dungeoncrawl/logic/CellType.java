@@ -18,7 +18,8 @@ public enum CellType {
     HOUSE("house"),
     ENTRANCE("entrance"),
     HOUSETWO("housetwo"),
-    CLOSED_DOOR("closed_door");
+    CLOSED_DOOR("closed_door"),
+    ROOM("room");
 
     private final String tileName;
 
