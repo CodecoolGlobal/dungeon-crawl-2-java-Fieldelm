@@ -33,9 +33,8 @@ public class Main extends Application {
     Label inventory = new Label();
     Label gameOver = new Label();
     boolean isGameOver = false;
-
-    Media media = new Media(new File("src/main/resources/background-music.mp3").toURI().toString());
-    MediaPlayer mediaPlayer = new MediaPlayer(media);
+    Media backgroundMedia;
+    MediaPlayer backgroundMediaPlayer;
 
     public static void main(String[] args) {
         launch(args);
@@ -43,6 +42,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
+        backgroundMedia = new Media(new File("src/main/resources/background-music.wav").toURI().toString());
+        backgroundMediaPlayer = new MediaPlayer(backgroundMedia);
+        backgroundMediaPlayer.setAutoPlay(true);
         Font myFont = new Font("Serif",  18);
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
@@ -58,7 +61,6 @@ public class Main extends Application {
         damageLabel.setFont(myFont);
         message.setFont(myFont);
         inventory.setFont(myFont);
-        mediaPlayer.setAutoPlay(true);
 
         BorderPane borderPane = new BorderPane();
 
@@ -70,10 +72,11 @@ public class Main extends Application {
         refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
 
+
+
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
     }
-
     private void onKeyPressed(KeyEvent keyEvent) {
         if(!isGameOver) {
             switch (keyEvent.getCode()) {
@@ -126,6 +129,7 @@ public class Main extends Application {
         healthLabel.setText("Health:  " + map.getPlayer().getHealth());
         damageLabel.setText("Damage:  " + map.getPlayer().getActual_damage());
         inventory.setText(map.getPlayer().getItemInventory().toString());
+        stepSound();
     }
     public void gameOverDisplay(){
         isGameOver = true;
@@ -134,5 +138,10 @@ public class Main extends Application {
         gameOver.setFont(myFont);
         refresh();
 
+    }
+    public void stepSound(){
+        Media stepMedia = new Media(new File("src/main/resources/step.wav").toURI().toString());
+        MediaPlayer stepMediaPlayer = new MediaPlayer(stepMedia);
+        stepMediaPlayer.play();
     }
 }
