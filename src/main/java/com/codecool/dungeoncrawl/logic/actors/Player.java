@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
+import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
@@ -8,6 +9,10 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.MagicKey;
 import com.codecool.dungeoncrawl.logic.items.MagicWand;
 import javafx.scene.control.Label;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
+import java.io.File;
 
 public class Player extends Actor {
     private Inventory itemInventory;
@@ -29,10 +34,16 @@ public class Player extends Actor {
            }
            this.getCell().setItem(null);
            setLabelText("");
+           itemPickSound();
        }else {
            setLabelText("There is nothing");
        }
 
+    }
+    public void itemPickSound(){
+        Media itemPickMedia = new Media(new File("src/main/resources/pick_item.wav").toURI().toString());
+        MediaPlayer itemPickMediaPlayer = new MediaPlayer(itemPickMedia);
+        itemPickMediaPlayer.play();
     }
 
     public Inventory getItemInventory(){

@@ -144,4 +144,10 @@ public class Main extends Application {
         MediaPlayer stepMediaPlayer = new MediaPlayer(stepMedia);
         stepMediaPlayer.play();
     }
+
+   /* public static void itemPickSound(){
+        Media itemPickMedia = new Media(new File("src/main/resources/pick_item.wav").toURI().toString());
+MediaPlayer itemPickMediaPlayer = new MediaPlayer(itemPickMedia);
+itemPickMediaPlayer.play();
+    }*/
 }
