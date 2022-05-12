@@ -12,9 +12,13 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class Main extends Application {
     static final int CONST_10 = 10;
@@ -29,6 +33,9 @@ public class Main extends Application {
     Label inventory = new Label();
     Label gameOver = new Label();
     boolean isGameOver = false;
+
+    Media media = new Media(new File("src/main/resources/background-music.mp3").toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(media);
 
     public static void main(String[] args) {
         launch(args);
@@ -51,7 +58,7 @@ public class Main extends Application {
         damageLabel.setFont(myFont);
         message.setFont(myFont);
         inventory.setFont(myFont);
-
+        mediaPlayer.setAutoPlay(true);
 
         BorderPane borderPane = new BorderPane();
 
