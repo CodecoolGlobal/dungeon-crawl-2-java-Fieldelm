@@ -7,6 +7,8 @@ import com.codecool.dungeoncrawl.logic.items.ActableItem;
 
 import java.util.Random;
 
+import java.util.Random;
+
 public class GameMap {
     private final int width;
     private final int height;
