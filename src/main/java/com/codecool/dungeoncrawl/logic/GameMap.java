@@ -74,7 +74,9 @@ public class GameMap {
                     ((Monsters) cells[x][y].getActor()).monsterAct();
 
                 }
-                if( cells[x][y].getItem() instanceof ActableItem);
+                if( cells[x][y].getItem() instanceof ActableItem){
+                    ((ActableItem) cells[x][y].getItem()).act(this);
+                }
             }
         }
     }
