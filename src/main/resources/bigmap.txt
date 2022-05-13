@@ -14,9 +14,9 @@
   ###..####      #.__rwrG.r..re..ll..d...r...k...#ll._lttttttt_eerttttttttltt.....btttttttwww.e.i.w#
   #.......#      #..wwwrrree.....lll......d...K..#ll...r..fir_rrrrr....G..----..D....ree.twwww._.wtw
   #.......#      #wwwi.i__kree...llllll....í_í.í.#........reerrrrrr_.rr.....rrre.._......ttt_wwww..w
-  #.......#      #ere_c_.y_rrr_..l....l..._......#.....rr__rreerrrrrr.....ere....r........fi_ttttt.#
-  #...Wk..#      #..rifrG___r__..llllll....í.c.í.#........eerrrrrer.......rr...c._rrr.........__e..#
-  #.......#      #.er.errrr__.._.ll.er...........#..H..R...rrerrrrr..A..A.r..íl.lr......____errrr_.#
+  #.......#      #ere_c_.y_rrr_..l....l..._......#.....rr__rr...rrrrr.....ere....r........fi_ttttt.#
+  #...Wk..#      #..rifrG___r__..llllll....í.c.í.#........eer.rRrer.......rr...c._rrr.........__e..#
+  #.......#      #.er.errrr__.._.ll.er...........#............rrrrr..A..A.r..íl.lr......____errrr_.#
   #.......#      #_.ee_rree._e...l......re.í.í.ír#..#.......rrrer__l......rr_rrre............____..#
   #########      #__.rrrr.__...b.l.....reerrreerr#..##rrrrrrrrrrr  rr....K.........................#
   ##############################.l.###############  ################################################

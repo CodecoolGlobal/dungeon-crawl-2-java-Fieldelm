@@ -27,12 +27,10 @@ public class Inventory {
     }
 
     public boolean hasFriends(){
-        boolean ron = false, hermione = false;
         for (String key : items.keySet()) {
-            if (Objects.equals(key, "ron")) ron = true;
-            else if(Objects.equals(key, "hermione")) hermione = true;
+            if (Objects.equals(key, "ron")) return true;
         }
-        return ron && hermione;
+        return false;
     }
 
     public void useItem(String itemName){
