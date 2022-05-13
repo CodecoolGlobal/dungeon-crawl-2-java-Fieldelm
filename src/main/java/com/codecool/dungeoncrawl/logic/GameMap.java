@@ -72,10 +72,9 @@ public class GameMap {
             for (int y = 0; y < height; y++) {
                 if (cells[x][y].getActor() instanceof Monsters) {
                     ((Monsters) cells[x][y].getActor()).monsterAct();
+
                 }
-                if( cells[x][y].getItem() instanceof ActableItem){
-                    ((ActableItem) cells[x][y].getItem()).act(this);
-                }
+                if( cells[x][y].getItem() instanceof ActableItem);
             }
         }
     }

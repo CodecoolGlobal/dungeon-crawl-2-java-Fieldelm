@@ -42,10 +42,16 @@ public class Player extends Actor {
        }
 
     }
-    public void itemPickSound(){
+    private void itemPickSound(){
         Media itemPickMedia = new Media(new File("src/main/resources/pick_item.wav").toURI().toString());
         MediaPlayer itemPickMediaPlayer = new MediaPlayer(itemPickMedia);
         itemPickMediaPlayer.play();
+    }
+
+    private void spellSound(){
+        Media spellMedia = new Media(new File("src/main/resources/spell.wav").toURI().toString());
+        MediaPlayer spellMediaPlayer = new MediaPlayer(spellMedia);
+        spellMediaPlayer.play();
     }
 
     public Inventory getItemInventory(){
@@ -69,6 +75,7 @@ public class Player extends Actor {
         if(nextCell.getActor() != null){
             if(itemInventory.hasMagicItem("magicWand")) {
                 nextCell.getActor().takeDamage(this.getActual_damage(), this);
+                spellSound();
 
             }else{
                 setLabelText("You don't have \nyour magic wand.");
