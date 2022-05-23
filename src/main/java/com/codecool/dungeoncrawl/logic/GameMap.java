@@ -48,20 +48,20 @@ public class GameMap {
         return height;
     }
 
-    public Cell getCenterCell(){
+    public Cell getCenterCell() {
         return centerCell;
     }
 
-    public void repositionCenter(){
+    public void repositionCenter() {
         int nextX;
         int nextY;
-        if(player.getCell().getX()<= 10){
+        if (player.getCell().getX() <= 10) {
             nextX = 10;
-        }else nextX = Math.min(player.getCell().getX(), width - 11);
+        } else nextX = Math.min(player.getCell().getX(), width - 11);
 
-        if(player.getCell().getY()<= 10){
+        if (player.getCell().getY() <= 10) {
             nextY = 10;
-        }else nextY = Math.min(player.getCell().getY(), height - 11);
+        } else nextY = Math.min(player.getCell().getY(), height - 11);
 
         centerCell = cells[nextX][nextY];
 
@@ -75,29 +75,29 @@ public class GameMap {
                     ((Monsters) cells[x][y].getActor()).monsterAct();
 
                 }
-                if( cells[x][y].getItem() instanceof ActableItem){
+                if (cells[x][y].getItem() instanceof ActableItem) {
                     ((ActableItem) cells[x][y].getItem()).act(this);
                 }
             }
         }
     }
 
-    public void openDoor(int x, int y){
+    public void openDoor(int x, int y) {
         cells[x][y].setType(CellType.ENTRANCE);
     }
 
-    public void crossWater(int x, int y){
+    public void crossWater(int x, int y) {
         cells[x][y].setType(CellType.CROSS_WATER);
     }
 
-    public void remakeWater(int x, int y){
+    public void remakeWater(int x, int y) {
         cells[x][y].setType(CellType.WATER);
     }
 
-    static public int randomInt(int min, int max){
+    static public int randomInt(int min, int max) {
         Random random = new Random();
         int difference = 0;
-        if(min < 0){
+        if (min < 0) {
             difference = Math.abs(min);
             return random.nextInt(max + difference) - difference;
         }
