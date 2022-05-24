@@ -17,6 +17,7 @@ import java.io.File;
 public class Player extends Actor {
     private Inventory itemInventory;
     private Label messageLabel;
+    private String name;
 
     private final int maxHealth = 30;
 

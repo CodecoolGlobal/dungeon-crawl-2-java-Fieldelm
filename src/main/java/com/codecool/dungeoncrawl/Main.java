@@ -10,7 +10,9 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -32,6 +34,7 @@ import java.io.File;
 
 
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class Main extends Application {
     static final int CONST_10 = 10;
@@ -41,10 +44,13 @@ public class Main extends Application {
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
+
+
     Label healthLabel = new Label();
     Label damageLabel = new Label();
     Label inventory = new Label();
     Label gameOver = new Label();
+
     boolean isGameOver = false;
     Media backgroundMedia;
     MediaPlayer backgroundMediaPlayer;
@@ -66,12 +72,22 @@ public class Main extends Application {
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
 
-        ui.add(healthLabel, 0, 0);
-        ui.add(damageLabel, 0,1);
-        ui.add(new Label(), 0,2);
-        ui.add(inventory, 0, 3);
-        ui.add(message, 0, 4);
-        ui.add(gameOver, 0, 7);
+        ui.add(new Label ("Please enter your name"),0,0);
+        TextField nameInput = new TextField();
+        ui.add(nameInput, 0, 1);
+        Button saveButton = new Button("Save");
+
+        saveButton.setOnAction(e -> {
+            String name = nameInput.getText();
+        });
+
+
+        ui.add(healthLabel, 0, 2);
+        ui.add(damageLabel, 0,3);
+        ui.add(new Label(), 0,4);
+        ui.add(inventory, 0, 5);
+        ui.add(message, 0, 6);
+        ui.add(gameOver, 0, 8);
         healthLabel.setFont(myFont);
         damageLabel.setFont(myFont);
         message.setFont(myFont);
@@ -203,5 +219,9 @@ public class Main extends Application {
             System.exit(1);
         }
         System.exit(0);
+    }
+
+    public void saveName(Label nameLabel){
+
     }
 }
