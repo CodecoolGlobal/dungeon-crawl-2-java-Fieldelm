@@ -133,10 +133,7 @@ public class Main extends Application {
             case SPACE:
                 map.getPlayer().pickUpItem();
                 break;
-            case S:
-                Player player = map.getPlayer();
-                dbManager.savePlayer(player);
-                break;
+
         }
         map.repositionCenter();
         map.actAllMapCreature();
@@ -244,6 +241,7 @@ public class Main extends Application {
             String name = nameInput.getText();
             map.getPlayer().setName(name);
             //TODO: save gamestate to sql
+            dbManager.savePlayer(map.getPlayer());
             ui.getChildren().remove(nameInput);
             ui.getChildren().remove(nameLabel);
             ui.getChildren().remove(saveButton);
