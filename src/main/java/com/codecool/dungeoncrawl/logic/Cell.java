@@ -81,4 +81,18 @@ public class Cell implements Drawable {
     public int getY() {
         return y;
     }
+
+    @Override
+    public String toString(){
+        if(actor != null){
+            return actor.toString();
+        }
+        else if( item != null){
+            return item.toString();
+        }
+        else{
+            return type.getMapCharacter();
+        }
+    }
+
 }
