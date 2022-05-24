@@ -76,15 +76,16 @@ public class Main extends Application {
         TextField nameInput = new TextField();
         ui.add(nameInput, 0, 1);
         Button saveButton = new Button("Save");
-
+        ui.add(saveButton, 1,2);
         saveButton.setOnAction(e -> {
             String name = nameInput.getText();
+
         });
 
 
-        ui.add(healthLabel, 0, 2);
-        ui.add(damageLabel, 0,3);
-        ui.add(new Label(), 0,4);
+        ui.add(healthLabel, 0, 3);
+        ui.add(damageLabel, 0,4);
+       // ui.add(new Label(), 0,4);
         ui.add(inventory, 0, 5);
         ui.add(message, 0, 6);
         ui.add(gameOver, 0, 8);
