@@ -6,7 +6,9 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -27,6 +29,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 
+import java.awt.*;
 import java.io.File;
 
 
@@ -44,6 +47,7 @@ public class Main extends Application {
             21 * Tiles.TILE_WIDTH,
             21 * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
+    Font myFont = new Font("Serif", 18);
 
 
     Label healthLabel = new Label();
@@ -62,30 +66,20 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         setupDbManager();
         backgroundMedia = new Media(new File("src/main/resources/background-music.wav").toURI().toString());
         backgroundMediaPlayer = new MediaPlayer(backgroundMedia);
         backgroundMediaPlayer.setAutoPlay(true);
-        Font myFont = new Font("Serif",  18);
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
 
-        ui.add(new Label ("Please enter your name"),0,0);
-        TextField nameInput = new TextField();
-        ui.add(nameInput, 0, 1);
-        Button saveButton = new Button("Save");
-        ui.add(saveButton, 1,2);
-        saveButton.setOnAction(e -> {
-            String name = nameInput.getText();
-
-        });
-
+        askNameInput(ui);
 
         ui.add(healthLabel, 0, 3);
-        ui.add(damageLabel, 0,4);
-       // ui.add(new Label(), 0,4);
+        ui.add(damageLabel, 0, 4);
+        // ui.add(new Label(), 0,4);
         ui.add(inventory, 0, 5);
         ui.add(message, 0, 6);
         ui.add(gameOver, 0, 8);
@@ -93,6 +87,7 @@ public class Main extends Application {
         damageLabel.setFont(myFont);
         message.setFont(myFont);
         inventory.setFont(myFont);
+
 
         BorderPane borderPane = new BorderPane();
 
@@ -117,8 +112,7 @@ public class Main extends Application {
                 || exitCombinationWin.match(keyEvent)
                 || keyEvent.getCode() == KeyCode.ESCAPE) {
             exit();
-        }
-        else if(saveCombination.match(keyEvent)){
+        } else if (saveCombination.match(keyEvent)) {
             //ToDo save game
         }
     }
@@ -148,7 +142,7 @@ public class Main extends Application {
         map.repositionCenter();
         map.actAllMapCreature();
         refresh();
-        if(map.getPlayer().hasFriends()){
+        if (map.getPlayer().hasFriends()) {
             gameWonDisplay();
         }
         if (map.getPlayer().getHealth() < 0) {
@@ -168,11 +162,11 @@ public class Main extends Application {
             for (int y = minY; y <= maxY; y++) {
                 Cell cell = map.getCell(x, y);
                 if (cell.getActor() != null) {
-                    Tiles.drawTile(context, cell.getActor(), x-minX, y-minY);
+                    Tiles.drawTile(context, cell.getActor(), x - minX, y - minY);
                 } else if (cell.getItem() != null) {
-                    Tiles.drawTile(context, cell.getItem(), x-minX, y-minY);
-                }else {
-                    Tiles.drawTile(context, cell, x-minX, y-minY);
+                    Tiles.drawTile(context, cell.getItem(), x - minX, y - minY);
+                } else {
+                    Tiles.drawTile(context, cell, x - minX, y - minY);
 
                 }
             }
@@ -191,22 +185,25 @@ public class Main extends Application {
             System.out.println("Cannot connect to database.");
         }
     }
-    public void gameOverDisplay(){
+
+    public void gameOverDisplay() {
         isGameOver = true;
-        Font myFont = new Font("Serif",  36);
+        Font myFont = new Font("Serif", 36);
         gameOver.setText("Game\nOver!");
         gameOver.setFont(myFont);
         refresh();
 
     }
-    public void gameWonDisplay(){
+
+    public void gameWonDisplay() {
         isGameOver = true;
-        Font myFont = new Font("Serif",  22);
+        Font myFont = new Font("Serif", 22);
         gameOver.setText("Congratulation!");
         gameOver.setFont(myFont);
         refresh();
     }
-    public void stepSound(){
+
+    public void stepSound() {
         Media stepMedia = new Media(new File("src/main/resources/step.wav").toURI().toString());
         MediaPlayer stepMediaPlayer = new MediaPlayer(stepMedia);
         stepMediaPlayer.play();
@@ -221,7 +218,28 @@ public class Main extends Application {
         System.exit(0);
     }
 
-    public void saveName(Label nameLabel){
+    public void saveName(Label nameLabel) {
 
+    }
+
+    public void askNameInput(GridPane gridpane) {
+
+        Label nameLabel = new Label("Please enter your name");
+        gridpane.add(nameLabel, 0, 0);
+        TextField nameInput = new TextField();
+        gridpane.add(nameInput, 0, 1);
+        Button saveButton = new Button("Save");
+        gridpane.add(saveButton, 0, 2);
+        saveButton.setOnAction(e -> {
+            String name = nameInput.getText();
+            map.getPlayer().setName(name);
+            gridpane.getChildren().remove(nameInput);
+            gridpane.getChildren().remove(nameLabel);
+            gridpane.getChildren().remove(saveButton);
+            Label playerName = new Label(name);
+            gridpane.add(playerName, 0, 0);
+            playerName.setFont(myFont);
+            System.out.println(map.getPlayer().getName());
+        });
     }
 }
