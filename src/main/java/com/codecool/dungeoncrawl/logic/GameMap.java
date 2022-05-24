@@ -96,13 +96,16 @@ public class GameMap {
 
     @Override
     public String toString(){
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < width; i++){
-            for(int j = 0; j < height; j++){
-                sb.append(cells[i][j].toString());
+        StringBuilder map = new StringBuilder();
+        for(int i = 0; i < height; i++){
+            StringBuilder row = new StringBuilder();
+            for(int j = 0; j < width; j++){
+                row.append(cells[j][i]);
             }
+            map.append(row.toString()).append("\n");
         }
-        return sb.toString();
+        map.append("\n   ");
+        return map.toString();
     }
     static public int randomInt(int min, int max) {
         Random random = new Random();
