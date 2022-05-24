@@ -38,8 +38,8 @@ public class Main extends Application {
     Label message = new Label();
     GameMap map = MapLoader.loadMap(message);
     Canvas canvas = new Canvas(
-            map.getWidth() * Tiles.TILE_WIDTH,
-            map.getHeight() * Tiles.TILE_WIDTH);
+            21 * Tiles.TILE_WIDTH,
+            21 * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
     Label damageLabel = new Label();
