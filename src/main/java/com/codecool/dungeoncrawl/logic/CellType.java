@@ -33,4 +33,32 @@ public enum CellType {
     public String getTileName() {
         return tileName;
     }
+
+    public String getMapCharacter(){
+        switch(tileName){
+            case "empty": return " ";
+            case "floor": return ".";
+            case "wall": return "#";
+            case "tree": return "r";
+            case "treeTwo": return "e";
+            case "noWall": return "-";
+            case "grass": return "_";
+            case "water": return "w";
+            case "campfire": return "c";
+            case "fence": return "f";
+            case "lessfloor": return "l";
+            case "table": return "b";
+            case "stonefence": return "s";
+            case "stonefencetwo": return "t";
+            case "house": return "í";
+            case "entrance": return "g";
+            case "housetwo": return "i";
+            case "closed_door": return "C";
+            case "room": return "*";
+            case "skull": return "k";
+            case "loot": return "y";
+            case "crossWater": return "$";
+            default: return "#";
+        }
+    }
 }
