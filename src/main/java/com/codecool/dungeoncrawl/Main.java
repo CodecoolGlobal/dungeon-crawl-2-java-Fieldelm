@@ -110,23 +110,18 @@ public class Main extends Application {
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1);
-                refresh();
                 break;
             case DOWN:
                 map.getPlayer().move(0, 1);
-                refresh();
                 break;
             case LEFT:
                 map.getPlayer().move(-1, 0);
-                refresh();
                 break;
             case RIGHT:
                 map.getPlayer().move(1, 0);
-                refresh();
                 break;
             case SPACE:
                 map.getPlayer().pickUpItem();
-                refresh();
                 break;
             case S:
                 Player player = map.getPlayer();
@@ -135,7 +130,7 @@ public class Main extends Application {
         }
         map.repositionCenter();
         map.actAllMapCreature();
-      //  refresh();
+        refresh();
         if(map.getPlayer().hasFriends()){
             gameWonDisplay();
         }
