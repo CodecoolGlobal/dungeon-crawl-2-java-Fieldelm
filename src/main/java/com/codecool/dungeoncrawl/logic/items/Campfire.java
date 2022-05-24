@@ -37,4 +37,9 @@ public class Campfire extends Item implements ActableItem {
         Random rand = new Random();
         return rand.nextInt(2) + 1;
     }
+
+    @Override
+    public String toString(){
+        return "c";
+    }
 }

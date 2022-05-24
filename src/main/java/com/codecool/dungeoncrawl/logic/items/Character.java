@@ -14,4 +14,9 @@ public class Character extends Item{
     public String getTileName() {
         return name;
     }
+
+    @Override
+    public String toString(){
+        return "R";
+    }
 }

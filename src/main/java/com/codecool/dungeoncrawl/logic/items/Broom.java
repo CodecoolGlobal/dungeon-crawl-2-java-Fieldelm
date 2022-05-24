@@ -12,4 +12,9 @@ public class Broom extends Item{
     public String getTileName(){
         return "Broom";
     }
+
+    @Override
+    public String toString(){
+        return "B";
+    }
 }

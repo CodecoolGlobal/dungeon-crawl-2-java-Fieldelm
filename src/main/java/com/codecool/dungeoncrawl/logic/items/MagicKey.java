@@ -11,4 +11,9 @@ public class MagicKey extends Item
     public String getTileName() {
         return "magicKey";
     }
+
+    @Override
+    public String toString(){
+        return "K";
+    }
 }

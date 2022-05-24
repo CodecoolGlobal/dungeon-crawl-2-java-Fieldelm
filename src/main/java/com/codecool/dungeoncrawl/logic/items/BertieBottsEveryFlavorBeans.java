@@ -11,4 +11,9 @@ public class BertieBottsEveryFlavorBeans extends Item{
     public String getTileName(){
         return "BB's E. Flavor";
     }
+
+    @Override
+    public String toString(){
+        return "D";
+    }
 }
