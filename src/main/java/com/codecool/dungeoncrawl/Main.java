@@ -41,8 +41,8 @@ public class Main extends Application {
     Label message = new Label();
     GameMap map = MapLoader.loadMap(message);
     Canvas canvas = new Canvas(
-            map.getWidth() * Tiles.TILE_WIDTH,
-            map.getHeight() * Tiles.TILE_WIDTH);
+            21 * Tiles.TILE_WIDTH,
+            21 * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
 
 
@@ -111,10 +111,14 @@ public class Main extends Application {
     private void onKeyReleased(KeyEvent keyEvent) {
         KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
         KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
+        KeyCombination saveCombination = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
         if (exitCombinationMac.match(keyEvent)
                 || exitCombinationWin.match(keyEvent)
                 || keyEvent.getCode() == KeyCode.ESCAPE) {
             exit();
+        }
+        else if(saveCombination.match(keyEvent)){
+            //ToDo save game
         }
     }
 
@@ -122,23 +126,18 @@ public class Main extends Application {
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1);
-                refresh();
                 break;
             case DOWN:
                 map.getPlayer().move(0, 1);
-                refresh();
                 break;
             case LEFT:
                 map.getPlayer().move(-1, 0);
-                refresh();
                 break;
             case RIGHT:
                 map.getPlayer().move(1, 0);
-                refresh();
                 break;
             case SPACE:
                 map.getPlayer().pickUpItem();
-                refresh();
                 break;
             case S:
                 Player player = map.getPlayer();
@@ -147,7 +146,7 @@ public class Main extends Application {
         }
         map.repositionCenter();
         map.actAllMapCreature();
-      //  refresh();
+        refresh();
         if(map.getPlayer().hasFriends()){
             gameWonDisplay();
         }
