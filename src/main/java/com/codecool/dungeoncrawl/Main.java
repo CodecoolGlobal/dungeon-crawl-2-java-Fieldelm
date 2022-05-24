@@ -32,6 +32,8 @@ import java.io.File;
 
 
 import java.sql.SQLException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Main extends Application {
     static final int CONST_10 = 10;
@@ -49,6 +51,7 @@ public class Main extends Application {
     Media backgroundMedia;
     MediaPlayer backgroundMediaPlayer;
     GameDatabaseManager dbManager;
+    Timer timer = new Timer();
 
 
     public static void main(String[] args) {
@@ -90,6 +93,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+        moveMonsters();
     }
 
     private void onKeyReleased(KeyEvent keyEvent) {
@@ -129,7 +133,6 @@ public class Main extends Application {
                 break;
         }
         map.repositionCenter();
-        map.actAllMapCreature();
         refresh();
         if(map.getPlayer().hasFriends()){
             gameWonDisplay();
@@ -137,6 +140,17 @@ public class Main extends Application {
         if (map.getPlayer().getHealth() < 0) {
             gameOverDisplay();
         }
+    }
+
+    private void moveMonsters(){
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                map.actAllMapCreature();
+                refresh();
+            }
+        }, 0, 1000);
+
     }
 
 
@@ -175,6 +189,7 @@ public class Main extends Application {
         }
     }
     public void gameOverDisplay(){
+        timer.cancel();
         isGameOver = true;
         Font myFont = new Font("Serif",  36);
         gameOver.setText("Game\nOver!");
@@ -183,6 +198,7 @@ public class Main extends Application {
 
     }
     public void gameWonDisplay(){
+        timer.cancel();
         isGameOver = true;
         Font myFont = new Font("Serif",  22);
         gameOver.setText("Congratulation!");
