@@ -94,6 +94,16 @@ public class GameMap {
         cells[x][y].setType(CellType.WATER);
     }
 
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < width; i++){
+            for(int j = 0; j < height; j++){
+                sb.append(cells[i][j].toString());
+            }
+        }
+        return sb.toString();
+    }
     static public int randomInt(int min, int max) {
         Random random = new Random();
         int difference = 0;
@@ -104,5 +114,4 @@ public class GameMap {
 
         return random.nextInt(max - min) + min;
     }
-
 }
