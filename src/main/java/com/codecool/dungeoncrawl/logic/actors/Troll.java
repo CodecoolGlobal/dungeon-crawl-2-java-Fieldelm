@@ -35,6 +35,11 @@ public class Troll extends Monsters{
                 break;
         }
     }
+
+    @Override
+    public String toString(){
+        return "A";
+    }
 }
 
 

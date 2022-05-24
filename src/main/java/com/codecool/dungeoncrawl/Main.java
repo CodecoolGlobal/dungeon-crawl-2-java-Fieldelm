@@ -8,7 +8,6 @@ import com.codecool.dungeoncrawl.logic.actors.Player;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -37,6 +36,8 @@ import java.io.File;
 
 
 import java.sql.SQLException;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Scanner;
 
 public class Main extends Application {
@@ -59,6 +60,7 @@ public class Main extends Application {
     Media backgroundMedia;
     MediaPlayer backgroundMediaPlayer;
     GameDatabaseManager dbManager;
+    Timer timer = new Timer();
 
 
     public static void main(String[] args) {
@@ -88,7 +90,6 @@ public class Main extends Application {
         message.setFont(myFont);
         inventory.setFont(myFont);
 
-
         BorderPane borderPane = new BorderPane();
 
         borderPane.setCenter(canvas);
@@ -102,6 +103,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+        moveMonsters();
     }
 
     private void onKeyReleased(KeyEvent keyEvent) {
@@ -112,7 +114,8 @@ public class Main extends Application {
                 || exitCombinationWin.match(keyEvent)
                 || keyEvent.getCode() == KeyCode.ESCAPE) {
             exit();
-        } else if (saveCombination.match(keyEvent)) {
+        }
+        else if(saveCombination.match(keyEvent)){
             //ToDo save game
         }
     }
@@ -148,6 +151,17 @@ public class Main extends Application {
         if (map.getPlayer().getHealth() < 0) {
             gameOverDisplay();
         }
+    }
+
+    private void moveMonsters(){
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                map.actAllMapCreature();
+                refresh();
+            }
+        }, 0, 1000);
+
     }
 
 
@@ -186,7 +200,9 @@ public class Main extends Application {
         }
     }
 
-    public void gameOverDisplay() {
+
+    public void gameOverDisplay(){
+        timer.cancel();
         isGameOver = true;
         Font myFont = new Font("Serif", 36);
         gameOver.setText("Game\nOver!");
@@ -194,8 +210,8 @@ public class Main extends Application {
         refresh();
 
     }
-
-    public void gameWonDisplay() {
+    public void gameWonDisplay(){
+        timer.cancel();
         isGameOver = true;
         Font myFont = new Font("Serif", 22);
         gameOver.setText("Congratulation!");

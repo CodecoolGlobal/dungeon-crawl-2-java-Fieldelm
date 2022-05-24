@@ -18,4 +18,9 @@ public class MagicWand extends Item{
     public String getTileName() {
         return "magicWand";
     }
+
+    @Override
+    public String toString(){
+        return "W";
+    }
 }

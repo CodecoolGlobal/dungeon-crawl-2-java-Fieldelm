@@ -34,4 +34,9 @@ public class Ghost extends Monsters{
     public String getTileName() {
         return "ghost";
     }
+
+    @Override
+    public String toString(){
+        return "G";
+    }
 }

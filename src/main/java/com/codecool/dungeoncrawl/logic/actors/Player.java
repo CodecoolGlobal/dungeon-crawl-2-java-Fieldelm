@@ -126,4 +126,9 @@ public class Player extends Actor {
     public boolean hasFriends() {
         return itemInventory.hasFriends();
     }
+
+    @Override
+    public String toString(){
+        return "@";
+    }
 }

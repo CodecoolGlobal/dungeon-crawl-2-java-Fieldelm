@@ -41,4 +41,9 @@ public class Dementor extends Monsters {
     public String getTileName() {
         return "dementor";
     }
+
+    @Override
+    public String toString(){
+        return "d";
+    }
 }
