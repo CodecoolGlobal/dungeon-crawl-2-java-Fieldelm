@@ -1,5 +1,7 @@
 package com.codecool.dungeoncrawl.dao;
 
+import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.model.GameState;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 
@@ -10,9 +12,11 @@ import java.util.List;
 
 public class GameStateDaoJdbc implements GameStateDao {
     private final DataSource dataSource;
+    private final PlayerDao playerDao;
 
-    public GameStateDaoJdbc(DataSource dataSource) {
+    public GameStateDaoJdbc(DataSource dataSource, PlayerDao playerDao) {
         this.dataSource = dataSource;
+        this.playerDao = playerDao;
     }
     @Override
     public void add(GameState state) {
@@ -48,11 +52,46 @@ public class GameStateDaoJdbc implements GameStateDao {
 
     @Override
     public GameState get(int id) {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT current_map, saved_at, player_id FROM game_state WHERE id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.next()) {
+                return null;
+            }
+            PlayerModel playerModel = playerDao.get(resultSet.getInt(3));
+
+            GameState gameState = new GameState(resultSet.getString(1), resultSet.getDate(2), playerModel);
+            gameState.setId(id);
+            return gameState;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while reading game state with id: " + id, e);
+        }
     }
 
     @Override
     public List<GameState> getAll() {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id, current_map, saved_at, player_id FROM game_state";
+            ResultSet resultSet = conn.createStatement().executeQuery(sql);
+
+            List<GameState> result = new ArrayList<>();
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String current_map = resultSet.getString(2);
+                Date saved_at = resultSet.getDate(3);
+                int player_id = resultSet.getInt(4);
+
+                PlayerModel playerModel = playerDao.get(player_id);
+
+                GameState gameState = new GameState(current_map, saved_at, playerModel);
+                gameState.setId(id);
+                result.add(gameState);
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
