@@ -22,12 +22,17 @@ public class Player extends Actor {
 
     private final int maxHealth = 30;
 
-    public Player(Cell cell, Label messageLabel) {
+    public Player(Cell cell) {
         super(cell);
-        this.messageLabel = messageLabel;
+        this.messageLabel = new Label();
         this.setActual_damage(5);
         this.itemInventory = new Inventory();
         this.name = null;
+    }
+
+    public Player(Cell cell, String name){
+        this(cell);
+        this.name = name;
     }
 
     public String getName() {
@@ -130,5 +135,9 @@ public class Player extends Actor {
     @Override
     public String toString(){
         return "@";
+    }
+
+    public Label getLabel(){
+        return messageLabel;
     }
 }
