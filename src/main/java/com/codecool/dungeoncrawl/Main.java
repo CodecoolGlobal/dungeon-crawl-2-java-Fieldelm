@@ -36,7 +36,7 @@ import java.util.Timer;
 
 public class Main extends Application {
     static final int CONST_10 = 10;
-    GameMap map = MapLoader.loadMap();
+    GameMap map = MapLoader.loadMap("/bigmap.txt");
     Canvas canvas = new Canvas(
             21 * Tiles.TILE_WIDTH,
             21 * Tiles.TILE_WIDTH);

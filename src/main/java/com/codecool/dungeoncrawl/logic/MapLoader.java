@@ -12,8 +12,8 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
-    public static GameMap loadMap() {
-        InputStream is = MapLoader.class.getResourceAsStream("/bigmap.txt");
+    public static GameMap loadMap(String fileName) {
+        InputStream is = MapLoader.class.getResourceAsStream(fileName);
         assert is != null;
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
