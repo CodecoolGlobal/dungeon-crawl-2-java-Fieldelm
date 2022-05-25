@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.model.PlayerModel;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerDaoJdbc implements PlayerDao {
@@ -51,16 +52,49 @@ public class PlayerDaoJdbc implements PlayerDao {
     @Override
     public PlayerModel get(int id) {
         try(Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT * FROM player WHERE id = ?";
+            String sql = "SELECT player_name, x, y, hp FROM player WHERE id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.next()) {
+                return null;
+            }
+            String player_name = resultSet.getString(1);
+            int x = resultSet.getInt(2);
+            int y = resultSet.getInt(3);
+            int hp = resultSet.getInt(4);
+            PlayerModel playerModel = new PlayerModel(player_name, x, y);
+            playerModel.setId(id);
+            playerModel.setHp(hp);
+            return playerModel;
         }
         catch(SQLException e){
             throw new RuntimeException(e);
         }
-        return null;
     }
 
     @Override
     public List<PlayerModel> getAll() {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id, player_name, x, y, hp FROM player";
+            ResultSet resultSet = conn.createStatement().executeQuery(sql);
+
+            List<PlayerModel> result = new ArrayList<>();
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String player_name = resultSet.getString(2);
+                int x = resultSet.getInt(3);
+                int y = resultSet.getInt(4);
+                int hp = resultSet.getInt(5);
+
+                PlayerModel playerModel = new PlayerModel(player_name, x, y);
+                playerModel.setId(id);
+                playerModel.setHp(hp);
+                result.add(playerModel);
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
