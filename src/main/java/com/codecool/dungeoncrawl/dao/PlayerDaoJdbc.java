@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.List;
 
 public class PlayerDaoJdbc implements PlayerDao {
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     public PlayerDaoJdbc(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -33,11 +33,29 @@ public class PlayerDaoJdbc implements PlayerDao {
 
     @Override
     public void update(PlayerModel player) {
-
+        try (Connection conn = dataSource.getConnection()){
+            String sql ="UPDATE player SET player_name = ?, hp = ?, x = ?, y = ? WHERE id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, player.getPlayerName());
+            statement.setInt(2, player.getHp());
+            statement.setInt(3, player.getX());
+            statement.setInt(4, player.getY());
+            statement.setInt(5, player.getId());
+            statement.executeUpdate();
+        }
+        catch(SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public PlayerModel get(int id) {
+        try(Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT * FROM player WHERE id = ?";
+        }
+        catch(SQLException e){
+            throw new RuntimeException(e);
+        }
         return null;
     }
 
