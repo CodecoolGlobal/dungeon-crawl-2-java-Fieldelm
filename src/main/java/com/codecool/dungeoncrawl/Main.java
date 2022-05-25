@@ -5,8 +5,9 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -26,19 +27,12 @@ import javafx.scene.text.Font;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
-
-import java.awt.*;
 import java.io.File;
-
-
-//import javax.print.attribute.standard.Media;
-
 
 import java.sql.SQLException;
 import java.util.Timer;
-import java.util.TimerTask;
-import java.util.Scanner;
 
 public class Main extends Application {
     static final int CONST_10 = 10;
@@ -68,7 +62,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage){
         setupDbManager();
         backgroundMedia = new Media(new File("src/main/resources/background-music.wav").toURI().toString());
         backgroundMediaPlayer = new MediaPlayer(backgroundMedia);
@@ -154,13 +148,14 @@ public class Main extends Application {
     }
 
     private void moveMonsters(){
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                map.actAllMapCreature();
-                refresh();
-            }
-        }, 0, 1000);
+        Timeline fiveSecondsWonder = new Timeline(
+                new KeyFrame(Duration.seconds(5),
+                        event -> {
+                            map.actAllMapCreature();
+                            refresh();
+                        }));
+        fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
+        fiveSecondsWonder.play();
 
     }
 
@@ -219,11 +214,11 @@ public class Main extends Application {
         refresh();
     }
 
-    public void stepSound() {
+    /*public void stepSound() {
         Media stepMedia = new Media(new File("src/main/resources/step.wav").toURI().toString());
         MediaPlayer stepMediaPlayer = new MediaPlayer(stepMedia);
         stepMediaPlayer.play();
-    }
+    }*/
 
     private void exit() {
         try {
@@ -234,9 +229,9 @@ public class Main extends Application {
         System.exit(0);
     }
 
-    public void saveName(Label nameLabel) {
+    /*public void saveName(Label nameLabel) {
 
-    }
+    }*/
 
     public void askNameInput(GridPane gridpane) {
 
