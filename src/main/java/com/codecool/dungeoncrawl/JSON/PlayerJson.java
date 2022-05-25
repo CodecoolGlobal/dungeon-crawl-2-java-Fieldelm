@@ -19,10 +19,10 @@ public class PlayerJson {
         this.hp = player.getHealth();
 
     }
-
+/*
     public String convertPlayerJson(){
-    return ConvertToJSON.convertPlayer(this);
-    }
+    return ConvertToJSON.convertObjectToJson(this);
+    }*/
 
     public Inventory getInventory() {
         return inventory;

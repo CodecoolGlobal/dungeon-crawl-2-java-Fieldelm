@@ -36,6 +36,8 @@ import javafx.util.Duration;
 import java.io.File;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -227,10 +229,6 @@ public class Main extends Application {
         System.exit(0);
     }
 
-    /*public void saveName(Label nameLabel) {
-
-    }*/
-
     public void showSaveOption() {
 
         Label nameLabel = new Label("Please enter your name");
@@ -250,20 +248,22 @@ public class Main extends Application {
             Label playerName = new Label(name);
             ui.add(playerName, 0, 0);
             playerName.setFont(myFont);
-          //  System.out.println(map.getPlayer().getName());
-           // fiveSecondsWonder.stop();
-            //String JSONPlayer = ConvertToJSON.convertPlayer(map.getPlayer());
-            //System.out.println(JSONPlayer);
-            //fiveSecondsWonder.play();
-            playerConverter();
-        });
+            mapConverter();
+         });
     }
 
-    public void playerConverter() {
-        PlayerJson player = new PlayerJson(map.getPlayer());
-        String playerJson = player.convertPlayerJson();
-        System.out.println(playerJson);
+    public void mapConverter(){
+        List <Object> mapObjects = ConvertToJSON.getEveryMember(map);
+        List<String> JSONList = new ArrayList<>();
+        for (Object obj : mapObjects){
+            JSONList.add(ConvertToJSON.convertObjectToJson(obj));
 
+        }
+         for (String objectJson : JSONList){
+             System.out.println(objectJson);
+         }
     }
+
+
 
 }
