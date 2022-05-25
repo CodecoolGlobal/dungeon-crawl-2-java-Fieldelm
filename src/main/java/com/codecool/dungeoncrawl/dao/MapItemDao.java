@@ -4,7 +4,7 @@ import com.codecool.dungeoncrawl.model.MapItemModel;
 
 import java.util.List;
 
-public interface MapItemsDao {
+public interface MapItemDao {
     void add(MapItemModel item);
     void update(MapItemModel item);
     MapItemModel get(int id);
