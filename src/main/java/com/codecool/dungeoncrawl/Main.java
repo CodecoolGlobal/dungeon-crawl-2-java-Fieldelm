@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.JSON.ConvertToJSON;
+import com.codecool.dungeoncrawl.JSON.PlayerJson;
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
@@ -251,9 +252,18 @@ public class Main extends Application {
             playerName.setFont(myFont);
           //  System.out.println(map.getPlayer().getName());
            // fiveSecondsWonder.stop();
-            String JSONPlayer = ConvertToJSON.convertPlayer(map.getPlayer());
-            System.out.println(JSONPlayer);
+            //String JSONPlayer = ConvertToJSON.convertPlayer(map.getPlayer());
+            //System.out.println(JSONPlayer);
             //fiveSecondsWonder.play();
+            playerConverter();
         });
     }
+
+    public void playerConverter() {
+        PlayerJson player = new PlayerJson(map.getPlayer());
+        String playerJson = player.convertPlayerJson();
+        System.out.println(playerJson);
+
+    }
+
 }

@@ -4,9 +4,9 @@ import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.google.gson.Gson;
 
 public class ConvertToJSON {
-    public static String convertPlayer(Player player) {
+    public static String convertPlayer(Object obj) {
         Gson JSONObject = new Gson();
-        return JSONObject.toJson(player.getCell().getX());
+        return JSONObject.toJson(obj);
     }
 
 }
