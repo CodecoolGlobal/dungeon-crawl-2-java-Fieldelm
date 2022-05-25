@@ -8,6 +8,7 @@ import com.codecool.dungeoncrawl.logic.actors.Player;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -29,10 +30,12 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
+
 import java.io.File;
 
 import java.sql.SQLException;
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class Main extends Application {
     static final int CONST_10 = 10;
@@ -43,6 +46,7 @@ public class Main extends Application {
             21 * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Font myFont = new Font("Serif", 18);
+    GridPane ui = new GridPane();
 
 
     Label healthLabel = new Label();
@@ -67,11 +71,9 @@ public class Main extends Application {
         backgroundMedia = new Media(new File("src/main/resources/background-music.wav").toURI().toString());
         backgroundMediaPlayer = new MediaPlayer(backgroundMedia);
         backgroundMediaPlayer.setAutoPlay(true);
-        GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
 
-        askNameInput(ui);
 
         ui.add(healthLabel, 0, 3);
         ui.add(damageLabel, 0, 4);
@@ -110,7 +112,7 @@ public class Main extends Application {
             exit();
         }
         else if(saveCombination.match(keyEvent)){
-            //ToDo save game
+            showSaveOption();
         }
     }
 
@@ -131,10 +133,7 @@ public class Main extends Application {
             case SPACE:
                 map.getPlayer().pickUpItem();
                 break;
-            case S:
-                Player player = map.getPlayer();
-                dbManager.savePlayer(player);
-                break;
+
         }
         map.repositionCenter();
         map.actAllMapCreature();
@@ -233,22 +232,24 @@ public class Main extends Application {
 
     }*/
 
-    public void askNameInput(GridPane gridpane) {
+    public void showSaveOption() {
 
         Label nameLabel = new Label("Please enter your name");
-        gridpane.add(nameLabel, 0, 0);
+        ui.add(nameLabel, 0, 0);
         TextField nameInput = new TextField();
-        gridpane.add(nameInput, 0, 1);
+        ui.add(nameInput, 0, 1);
         Button saveButton = new Button("Save");
-        gridpane.add(saveButton, 0, 2);
+        ui.add(saveButton, 0, 2);
         saveButton.setOnAction(e -> {
             String name = nameInput.getText();
             map.getPlayer().setName(name);
-            gridpane.getChildren().remove(nameInput);
-            gridpane.getChildren().remove(nameLabel);
-            gridpane.getChildren().remove(saveButton);
+            //TODO: save gamestate to sql
+            dbManager.savePlayer(map.getPlayer());
+            ui.getChildren().remove(nameInput);
+            ui.getChildren().remove(nameLabel);
+            ui.getChildren().remove(saveButton);
             Label playerName = new Label(name);
-            gridpane.add(playerName, 0, 0);
+            ui.add(playerName, 0, 0);
             playerName.setFont(myFont);
             System.out.println(map.getPlayer().getName());
         });
