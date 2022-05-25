@@ -244,7 +244,7 @@ public class Main extends Application {
             String name = nameInput.getText();
             map.getPlayer().setName(name);
             //TODO: save gamestate to sql
-            dbManager.savePlayer(map.getPlayer());
+            //dbManager.savePlayer(map.getPlayer());
             ui.getChildren().remove(nameInput);
             ui.getChildren().remove(nameLabel);
             ui.getChildren().remove(saveButton);
