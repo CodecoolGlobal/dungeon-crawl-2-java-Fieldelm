@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl;
 
+import com.codecool.dungeoncrawl.JSON.ConvertToJSON;
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
@@ -58,7 +59,7 @@ public class Main extends Application {
     Media backgroundMedia;
     MediaPlayer backgroundMediaPlayer;
     GameDatabaseManager dbManager;
-    Timer timer = new Timer();
+    Timeline fiveSecondsWonder;
 
 
     public static void main(String[] args) {
@@ -99,7 +100,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
-        moveMonsters();
+        //moveMonsters();
     }
 
     private void onKeyReleased(KeyEvent keyEvent) {
@@ -147,7 +148,7 @@ public class Main extends Application {
     }
 
     private void moveMonsters(){
-        Timeline fiveSecondsWonder = new Timeline(
+        fiveSecondsWonder = new Timeline(
                 new KeyFrame(Duration.seconds(5),
                         event -> {
                             map.actAllMapCreature();
@@ -155,7 +156,6 @@ public class Main extends Application {
                         }));
         fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
         fiveSecondsWonder.play();
-
     }
 
 
@@ -196,7 +196,6 @@ public class Main extends Application {
 
 
     public void gameOverDisplay(){
-        timer.cancel();
         isGameOver = true;
         Font myFont = new Font("Serif", 36);
         gameOver.setText("Game\nOver!");
@@ -205,7 +204,6 @@ public class Main extends Application {
 
     }
     public void gameWonDisplay(){
-        timer.cancel();
         isGameOver = true;
         Font myFont = new Font("Serif", 22);
         gameOver.setText("Congratulation!");
@@ -251,7 +249,11 @@ public class Main extends Application {
             Label playerName = new Label(name);
             ui.add(playerName, 0, 0);
             playerName.setFont(myFont);
-            System.out.println(map.getPlayer().getName());
+          //  System.out.println(map.getPlayer().getName());
+           // fiveSecondsWonder.stop();
+            String JSONPlayer = ConvertToJSON.convertPlayer(map.getPlayer());
+            System.out.println(JSONPlayer);
+            //fiveSecondsWonder.play();
         });
     }
 }

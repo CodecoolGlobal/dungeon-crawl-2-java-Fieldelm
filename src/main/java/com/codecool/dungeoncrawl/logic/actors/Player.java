@@ -129,6 +129,7 @@ public class Player extends Actor {
 
     @Override
     public String toString(){
-        return "@";
+        return name + ": " + messageLabel.toString() + "\n" + itemInventory.toString() + "\n"
+                + getHealth() + ",x: " + getCell().getX() + " y: " + getCell().getY();
     }
 }
