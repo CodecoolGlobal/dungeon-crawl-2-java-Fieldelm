@@ -6,7 +6,7 @@ public class MapItemModel extends BaseModel{
     private int y;
     private GameState map;
 
-    MapItemModel(String name, int x, int y, GameState map){
+    public MapItemModel(String name, int x, int y, GameState map){
         this.name = name;
         this.x = x;
         this.y = y;
