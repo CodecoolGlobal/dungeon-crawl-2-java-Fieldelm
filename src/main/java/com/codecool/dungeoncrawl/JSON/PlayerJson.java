@@ -12,6 +12,7 @@ public class PlayerJson {
 
     public PlayerJson(Player player) {
         this.playerName = player.getName();
+        this.inventory = player.getItemInventory();
         this.x = player.getX();
         this.y = player.getY();
 
