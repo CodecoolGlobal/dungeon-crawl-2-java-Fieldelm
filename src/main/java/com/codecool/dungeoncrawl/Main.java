@@ -1,16 +1,13 @@
 package com.codecool.dungeoncrawl;
 
-import com.codecool.dungeoncrawl.JSON.ConvertToJSON;
-import com.codecool.dungeoncrawl.JSON.PlayerJson;
+import com.codecool.dungeoncrawl.JSON.HandleJSON;
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.logic.actors.Player;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -25,6 +22,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
 
@@ -35,11 +33,10 @@ import javafx.util.Duration;
 
 import java.io.File;
 
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Main extends Application {
     static final int CONST_10 = 10;
@@ -63,14 +60,15 @@ public class Main extends Application {
     MediaPlayer backgroundMediaPlayer;
     GameDatabaseManager dbManager;
     Timeline fiveSecondsWonder;
-
+    private Stage myStage;
 
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage){
+    public void start(Stage primaryStage) {
+        myStage = primaryStage;
         setupDbManager();
         backgroundMedia = new Media(new File("src/main/resources/background-music.wav").toURI().toString());
         backgroundMediaPlayer = new MediaPlayer(backgroundMedia);
@@ -114,8 +112,7 @@ public class Main extends Application {
                 || exitCombinationWin.match(keyEvent)
                 || keyEvent.getCode() == KeyCode.ESCAPE) {
             exit();
-        }
-        else if(saveCombination.match(keyEvent)){
+        } else if (saveCombination.match(keyEvent)) {
             showSaveOption();
         }
     }
@@ -150,7 +147,7 @@ public class Main extends Application {
         }
     }
 
-    private void moveMonsters(){
+    private void moveMonsters() {
         fiveSecondsWonder = new Timeline(
                 new KeyFrame(Duration.seconds(5),
                         event -> {
@@ -198,7 +195,7 @@ public class Main extends Application {
     }
 
 
-    public void gameOverDisplay(){
+    public void gameOverDisplay() {
         isGameOver = true;
         Font myFont = new Font("Serif", 36);
         gameOver.setText("Game\nOver!");
@@ -206,7 +203,8 @@ public class Main extends Application {
         refresh();
 
     }
-    public void gameWonDisplay(){
+
+    public void gameWonDisplay() {
         isGameOver = true;
         Font myFont = new Font("Serif", 22);
         gameOver.setText("Congratulation!");
@@ -248,21 +246,41 @@ public class Main extends Application {
             Label playerName = new Label(name);
             ui.add(playerName, 0, 0);
             playerName.setFont(myFont);
-            mapConverter();
-         });
+            saveMapObjects(mapConverter());
+        });
     }
 
-    public void mapConverter(){
-        List <Object> mapObjects = ConvertToJSON.getEveryMember(map);
+    public List<String> mapConverter() {
+        List<Object> mapObjects = HandleJSON.getEveryMember(map);
         List<String> JSONList = new ArrayList<>();
-        for (Object obj : mapObjects){
-            JSONList.add(ConvertToJSON.convertObjectToJson(obj));
+        for (Object obj : mapObjects) {
+            JSONList.add(HandleJSON.convertObjectToJson(obj));
 
         }
-         for (String objectJson : JSONList){
-             System.out.println(objectJson);
-         }
+        for (String objectJson : JSONList) {
+            System.out.println(objectJson);
+        }
+        return JSONList;
     }
+
+    public void saveMapObjects(List<String> JSONList) {
+        FileChooser file = new FileChooser();
+        file.setTitle("Save Image");
+        //System.out.println(pic.getId());
+        File file1 = file.showSaveDialog(myStage);
+
+        System.out.println(file1);
+    }
+   /* private void saveTextToFile(String content, File file) {
+        try {
+            PrintWriter writer;
+            writer = new PrintWriter(file);
+            writer.println(content);
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(SaveFileWithFileChooser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }*/
 
 
 

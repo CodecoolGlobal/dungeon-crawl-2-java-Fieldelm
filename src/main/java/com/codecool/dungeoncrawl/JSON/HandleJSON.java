@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConvertToJSON {
+public class HandleJSON {
     public static String convertObjectToJson(Object obj) {
         Gson JSONObject = new Gson();
         return JSONObject.toJson(obj);
@@ -29,5 +29,14 @@ public class ConvertToJSON {
         }
         return members;
     }
+    public static String createStringFromJSONList(List<String> JSONList){
+        StringBuilder JSONbuilder = new StringBuilder();
+
+        for(String objectJson : JSONList){
+            JSONbuilder.append(objectJson);
+        }
+        return JSONbuilder.toString();
+    }
+
 
 }
