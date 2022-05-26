@@ -15,9 +15,12 @@ public class GameMap {
     private Cell centerCell;
     private Player player;
 
-    public GameMap(int width, int height, CellType defaultCellType) {
+    private final String fileName;
+
+    public GameMap(int width, int height, CellType defaultCellType, String fileName) {
         this.width = width;
         this.height = height;
+        this.fileName = fileName;
         cells = new Cell[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -107,6 +110,9 @@ public class GameMap {
         map.append("\n   ");
         return map.toString();
     }
+
+    public String getFileName(){return fileName;}
+
     static public int randomInt(int min, int max) {
         Random random = new Random();
         int difference = 0;

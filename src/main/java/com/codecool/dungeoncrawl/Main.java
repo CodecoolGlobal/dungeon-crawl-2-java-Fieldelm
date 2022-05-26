@@ -54,7 +54,6 @@ public class Main extends Application {
     Media backgroundMedia;
     MediaPlayer backgroundMediaPlayer;
     GameDatabaseManager dbManager;
-    Timer timer = new Timer();
 
 
     public static void main(String[] args) {
@@ -192,7 +191,6 @@ public class Main extends Application {
 
 
     public void gameOverDisplay(){
-        timer.cancel();
         isGameOver = true;
         Font myFont = new Font("Serif", 36);
         gameOver.setText("Game\nOver!");
@@ -201,7 +199,6 @@ public class Main extends Application {
 
     }
     public void gameWonDisplay(){
-        timer.cancel();
         isGameOver = true;
         Font myFont = new Font("Serif", 22);
         gameOver.setText("Congratulation!");
@@ -224,10 +221,6 @@ public class Main extends Application {
         System.exit(0);
     }
 
-    /*public void saveName(Label nameLabel) {
-
-    }*/
-
     public void showSaveOption() {
 
         Label nameLabel = new Label("Please enter your name");
@@ -239,15 +232,13 @@ public class Main extends Application {
         saveButton.setOnAction(e -> {
             String name = nameInput.getText();
             map.getPlayer().setName(name);
-            //TODO: save gamestate to sql
-            //dbManager.savePlayer(map.getPlayer());
+            dbManager.saveGameState(map);
             ui.getChildren().remove(nameInput);
             ui.getChildren().remove(nameLabel);
             ui.getChildren().remove(saveButton);
             Label playerName = new Label(name);
             ui.add(playerName, 0, 0);
             playerName.setFont(myFont);
-            System.out.println(map.getPlayer().getName());
         });
     }
 }
