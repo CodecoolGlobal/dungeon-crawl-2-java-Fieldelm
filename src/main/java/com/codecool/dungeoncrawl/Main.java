@@ -255,8 +255,10 @@ public class Main extends Application {
             ui.add(playerName, 0, 0);
             playerName.setFont(myFont);
             System.out.println(map.getPlayer().getName());
-            String finalJson = HandleJSON.createFinalJsonString(map);
+           String finalJson = HandleJSON.createFinalJsonString(map);
             saveTextToFile(finalJson, saveToFile());
+           String JsonString =  readFile(getFileForJson());
+
         });
     }
 
@@ -311,8 +313,10 @@ public class Main extends Application {
                 System.out.println("something wrong, try again");
             }
         }
+        System.out.println(stringBuffer.toString());
         return stringBuffer.toString();
     }
+
 
 
 }

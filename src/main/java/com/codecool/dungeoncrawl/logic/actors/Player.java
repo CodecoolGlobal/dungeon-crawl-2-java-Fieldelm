@@ -4,10 +4,7 @@ import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
-import com.codecool.dungeoncrawl.logic.items.Inventory;
-import com.codecool.dungeoncrawl.logic.items.Item;
-import com.codecool.dungeoncrawl.logic.items.MagicKey;
-import com.codecool.dungeoncrawl.logic.items.MagicWand;
+import com.codecool.dungeoncrawl.logic.items.*;
 import javafx.scene.control.Label;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -44,6 +41,8 @@ public class Player extends Actor {
             itemInventory.addItem(item.getTileName());
             if (item instanceof MagicWand) {
                 this.setActual_damage(((MagicWand) item).getDamage());
+            }else if (item instanceof BertieBottsEveryFlavorBeans){
+                this.increaseHealth(((BertieBottsEveryFlavorBeans) item).randomHealingRate());
             }
             this.getCell().setItem(null);
             setLabelText("");
