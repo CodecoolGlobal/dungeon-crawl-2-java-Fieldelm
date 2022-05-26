@@ -10,6 +10,7 @@ ALTER TABLE ONLY public.player_items
     DROP CONSTRAINT fk_player_id;
 ALTER TABLE IF EXISTS ONLY public.monsters
     DROP CONSTRAINT IF EXISTS fk_map_id;
+DROP TABLE IF EXISTS public.monsters;
 
 DROP TABLE IF EXISTS public.game_state;
 CREATE TABLE public.game_state (
@@ -45,14 +46,6 @@ CREATE TABLE public.map_items (
       y integer NOT NULL
 );
 
-DROP TABLE IF EXISTS public.monsters;
-CREATE TABLE public.monsters (
-    id serial NOT NULL PRIMARY KEY,
-    map_id integer NOT NULL,
-    monster_name text NOT NULL,
-    x integer NOT NULL,
-    y integer NOT NULL
-);
 
 ALTER TABLE ONLY public.game_state
     ADD CONSTRAINT fk_player_id FOREIGN KEY (player_id) REFERENCES public.player(id);
@@ -61,7 +54,4 @@ ALTER TABLE ONLY public.player_items
     ADD CONSTRAINT fk_player_id FOREIGN KEY (player_id) REFERENCES public.player(id);
 
 ALTER TABLE ONLY public.map_items
-    ADD CONSTRAINT fk_map_id FOREIGN KEY (map_id) REFERENCES public.game_state(id);
-
-ALTER TABLE ONLY public.monsters
     ADD CONSTRAINT fk_map_id FOREIGN KEY (map_id) REFERENCES public.game_state(id);

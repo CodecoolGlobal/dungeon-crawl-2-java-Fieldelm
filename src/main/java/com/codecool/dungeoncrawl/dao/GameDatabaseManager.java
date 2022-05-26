@@ -43,7 +43,13 @@ public class GameDatabaseManager {
             MapItemModel mapItemModel = new MapItemModel(name, x, y, gameState);
             mapItemDao.add(mapItemModel);
         });
-
+        map.getMonsters().forEach(monster -> {
+            String name = monster.getTileName();
+            int x = monster.getX();
+            int y = monster.getY();
+            MapItemModel mapItemModel = new MapItemModel(name, x, y, gameState);
+            mapItemDao.add(mapItemModel);
+        });
     }
 
     private DataSource connect() throws SQLException {
