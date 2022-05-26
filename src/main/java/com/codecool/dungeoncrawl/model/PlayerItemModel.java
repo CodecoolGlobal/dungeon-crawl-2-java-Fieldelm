@@ -3,9 +3,11 @@ package com.codecool.dungeoncrawl.model;
 public class PlayerItemModel extends BaseModel{
     private String name;
     private PlayerModel player;
+    private int quantity;
 
-    public PlayerItemModel(String name, PlayerModel player){
+    public PlayerItemModel(String name, int quantity, PlayerModel player){
         this.name = name;
+        this.quantity = quantity;
         this.player = player;
     }
 
@@ -22,4 +24,5 @@ public class PlayerItemModel extends BaseModel{
     public void setPlayer(PlayerModel player){
         this.player = player;
     }
+    public int getQuantity(){return quantity;}
 }
