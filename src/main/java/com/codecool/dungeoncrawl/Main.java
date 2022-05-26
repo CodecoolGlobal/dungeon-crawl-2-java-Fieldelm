@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl;
 
+import com.codecool.dungeoncrawl.JSON.HandleJSON;
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
@@ -23,6 +24,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
 
@@ -31,7 +33,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 
-import java.io.File;
+import java.io.*;
 
 import java.sql.SQLException;
 import java.util.Timer;
@@ -59,6 +61,7 @@ public class Main extends Application {
     MediaPlayer backgroundMediaPlayer;
     GameDatabaseManager dbManager;
     Timer timer = new Timer();
+    private Stage myStage;
 
 
     public static void main(String[] args) {
@@ -252,6 +255,64 @@ public class Main extends Application {
             ui.add(playerName, 0, 0);
             playerName.setFont(myFont);
             System.out.println(map.getPlayer().getName());
+            String finalJson = HandleJSON.createFinalJsonString(map);
+            saveTextToFile(finalJson, saveToFile());
         });
     }
+
+    public File saveToFile() {
+        FileChooser file = new FileChooser();
+        file.setTitle("Save Image");
+        //System.out.println(pic.getId());
+        File file1 = file.showSaveDialog(myStage);
+
+        System.out.println(file1);
+        return file1;
+    }
+
+    private void saveTextToFile(String content, File file) {
+        try {
+            PrintWriter writer;
+            writer = new PrintWriter(file);
+            writer.println(content);
+            writer.close();
+        } catch (IOException ex) {
+            System.out.println("file not found");
+        }
+    }
+
+    private File getFileForJson(){
+        FileChooser file = new FileChooser();
+        return file.showOpenDialog(myStage);
+
+    }
+
+    private String readFile(File file){
+        StringBuilder stringBuffer = new StringBuilder();
+        BufferedReader bufferedReader = null;
+
+        try {
+
+            bufferedReader = new BufferedReader(new FileReader(file));
+
+            String text;
+            while ((text = bufferedReader.readLine()) != null) {
+                stringBuffer.append(text);
+            }
+
+        } catch (FileNotFoundException ex) {
+            System.out.println("File not found");
+        } catch (IOException ex) {
+            System.out.println("something went wrong, try again");
+        } finally {
+            try {
+                bufferedReader.close();
+            } catch (IOException ex) {
+                System.out.println("something wrong, try again");
+            }
+        }
+        return stringBuffer.toString();
+    }
+
+
 }
