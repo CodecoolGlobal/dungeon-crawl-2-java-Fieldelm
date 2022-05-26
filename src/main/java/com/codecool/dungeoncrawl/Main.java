@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl;
 
+import com.codecool.dungeoncrawl.JSON.HandleJSON;
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
@@ -8,7 +9,6 @@ import com.codecool.dungeoncrawl.logic.actors.Player;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -23,6 +23,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
 
@@ -33,9 +34,11 @@ import javafx.util.Duration;
 
 import java.io.File;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main extends Application {
     static final int CONST_10 = 10;
@@ -58,15 +61,16 @@ public class Main extends Application {
     Media backgroundMedia;
     MediaPlayer backgroundMediaPlayer;
     GameDatabaseManager dbManager;
-    Timer timer = new Timer();
-
+    Timeline fiveSecondsWonder;
+    private Stage myStage;
 
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage){
+    public void start(Stage primaryStage) {
+        myStage = primaryStage;
         setupDbManager();
         backgroundMedia = new Media(new File("src/main/resources/background-music.wav").toURI().toString());
         backgroundMediaPlayer = new MediaPlayer(backgroundMedia);
@@ -99,7 +103,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
-        moveMonsters();
+        //moveMonsters();
     }
 
     private void onKeyReleased(KeyEvent keyEvent) {
@@ -110,8 +114,7 @@ public class Main extends Application {
                 || exitCombinationWin.match(keyEvent)
                 || keyEvent.getCode() == KeyCode.ESCAPE) {
             exit();
-        }
-        else if(saveCombination.match(keyEvent)){
+        } else if (saveCombination.match(keyEvent)) {
             showSaveOption();
         }
     }
@@ -146,8 +149,8 @@ public class Main extends Application {
         }
     }
 
-    private void moveMonsters(){
-        Timeline fiveSecondsWonder = new Timeline(
+    private void moveMonsters() {
+        fiveSecondsWonder = new Timeline(
                 new KeyFrame(Duration.seconds(5),
                         event -> {
                             map.actAllMapCreature();
@@ -155,7 +158,6 @@ public class Main extends Application {
                         }));
         fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
         fiveSecondsWonder.play();
-
     }
 
 
@@ -195,8 +197,7 @@ public class Main extends Application {
     }
 
 
-    public void gameOverDisplay(){
-        timer.cancel();
+    public void gameOverDisplay() {
         isGameOver = true;
         Font myFont = new Font("Serif", 36);
         gameOver.setText("Game\nOver!");
@@ -204,8 +205,8 @@ public class Main extends Application {
         refresh();
 
     }
-    public void gameWonDisplay(){
-        timer.cancel();
+
+    public void gameWonDisplay() {
         isGameOver = true;
         Font myFont = new Font("Serif", 22);
         gameOver.setText("Congratulation!");
@@ -228,10 +229,6 @@ public class Main extends Application {
         System.exit(0);
     }
 
-    /*public void saveName(Label nameLabel) {
-
-    }*/
-
     public void showSaveOption() {
 
         Label nameLabel = new Label("Please enter your name");
@@ -251,7 +248,34 @@ public class Main extends Application {
             Label playerName = new Label(name);
             ui.add(playerName, 0, 0);
             playerName.setFont(myFont);
-            System.out.println(map.getPlayer().getName());
+            String finalJson = HandleJSON.createFinalJsonString(map);
+            saveTextToFile(finalJson, saveToFile());
+
         });
     }
+
+
+    public File saveToFile() {
+        FileChooser file = new FileChooser();
+        file.setTitle("Save Image");
+        //System.out.println(pic.getId());
+        File file1 = file.showSaveDialog(myStage);
+
+        System.out.println(file1);
+        return file1;
+    }
+
+    private void saveTextToFile(String content, File file) {
+        try {
+            PrintWriter writer;
+            writer = new PrintWriter(file);
+            writer.println(content);
+            writer.close();
+        } catch (IOException ex) {
+            System.out.println("file not found");
+        }
+    }
+
+
+
 }

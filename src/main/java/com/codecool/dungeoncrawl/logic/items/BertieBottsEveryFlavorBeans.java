@@ -9,7 +9,7 @@ public class BertieBottsEveryFlavorBeans extends Item{
 
     @Override
     public String getTileName(){
-        return "BB's E. Flavor";
+        return "BBs E. Flavor";
     }
 
     @Override

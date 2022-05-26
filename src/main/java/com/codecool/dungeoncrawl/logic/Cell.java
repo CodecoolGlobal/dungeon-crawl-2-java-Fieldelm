@@ -67,8 +67,6 @@ public class Cell implements Drawable {
 
     public boolean isWater(){return this.type == CellType.WATER;}
 
-    public boolean isCrossedWater(){return this.type == CellType.CROSS_WATER;}
-
     @Override
     public String getTileName() {
         return type.getTileName();

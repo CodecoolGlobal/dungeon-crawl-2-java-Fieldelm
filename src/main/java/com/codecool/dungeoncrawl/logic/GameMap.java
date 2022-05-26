@@ -1,10 +1,14 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Monsters;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.ActableItem;
 import com.codecool.dungeoncrawl.logic.items.Campfire;
+import com.codecool.dungeoncrawl.logic.items.Item;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -64,7 +68,6 @@ public class GameMap {
         } else nextY = Math.min(player.getCell().getY(), height - 11);
 
         centerCell = cells[nextX][nextY];
-
     }
 
 
@@ -82,6 +85,35 @@ public class GameMap {
         }
     }
 
+    public List<Item> getItems() {
+
+        List<Item> items = new ArrayList<>();
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (cells[x][y].getItem() != null){
+                    items.add(cells[x][y].getItem());
+                }
+            }
+        }
+        return items;
+    }
+
+    public List<Actor> getActors() {
+
+        List<Actor> actors = new ArrayList<>();
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (cells[x][y].getActor() != null){
+                    actors.add(cells[x][y].getActor());
+                }
+            }
+        }
+        return actors;
+    }
+
+
     public void openDoor(int x, int y) {
         cells[x][y].setType(CellType.ENTRANCE);
     }
@@ -90,11 +122,7 @@ public class GameMap {
         cells[x][y].setType(CellType.CROSS_WATER);
     }
 
-    public void remakeWater(int x, int y) {
-        cells[x][y].setType(CellType.WATER);
-    }
-
-    @Override
+      @Override
     public String toString(){
         StringBuilder map = new StringBuilder();
         for(int i = 0; i < height; i++){
