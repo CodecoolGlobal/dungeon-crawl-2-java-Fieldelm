@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.dao;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.model.GameState;
+import com.codecool.dungeoncrawl.model.MapItemModel;
 import com.codecool.dungeoncrawl.model.PlayerItemModel;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 import org.postgresql.ds.PGSimpleDataSource;
@@ -14,12 +15,14 @@ public class GameDatabaseManager {
     private PlayerDao playerDao;
     private GameStateDao gameStateDao;
     private PlayerItemDao playerItemDao;
+    private MapItemDao mapItemDao;
 
     public void setup() throws SQLException {
         DataSource dataSource = connect();
         playerDao = new PlayerDaoJdbc(dataSource);
         gameStateDao = new GameStateDaoJdbc(dataSource, playerDao);
         playerItemDao = new PlayerItemDaoJdbc(dataSource, playerDao);
+        mapItemDao = new MapItemDaoJdbc(dataSource, gameStateDao);
     }
 
     public void saveGameState(GameMap map){
@@ -32,6 +35,13 @@ public class GameDatabaseManager {
         map.getPlayer().getItemInventory().getItems().forEach((name, quantity) -> {
             PlayerItemModel playerItemModel = new PlayerItemModel(name, quantity, playerModel);
             playerItemDao.add(playerItemModel);
+        });
+        map.getItems().forEach(item -> {
+            String name = item.getTileName();
+            int x = item.getX();
+            int y = item.getY();
+            MapItemModel mapItemModel = new MapItemModel(name, x, y, gameState);
+            mapItemDao.add(mapItemModel);
         });
     }
 

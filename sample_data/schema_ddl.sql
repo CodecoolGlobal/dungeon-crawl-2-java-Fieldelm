@@ -6,6 +6,8 @@ ALTER TABLE IF EXISTS ONLY public.game_state
     DROP CONSTRAINT IF EXISTS fk_player_id;
 ALTER TABLE IF EXISTS ONLY public.map_items
     DROP CONSTRAINT IF EXISTS fk_map_id ;
+ALTER TABLE ONLY public.player_items
+    DROP CONSTRAINT fk_player_id;
 
 DROP TABLE IF EXISTS public.game_state;
 CREATE TABLE public.game_state (

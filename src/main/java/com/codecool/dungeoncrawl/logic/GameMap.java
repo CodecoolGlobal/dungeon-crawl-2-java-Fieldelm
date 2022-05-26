@@ -4,7 +4,10 @@ import com.codecool.dungeoncrawl.logic.actors.Monsters;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.ActableItem;
 import com.codecool.dungeoncrawl.logic.items.Campfire;
+import com.codecool.dungeoncrawl.logic.items.Item;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -112,6 +115,30 @@ public class GameMap {
     }
 
     public String getFileName(){return fileName;}
+
+    public List<Item> getItems(){
+        List<Item> items = new ArrayList<>();
+        for(int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if (cells[j][i].getItem() != null){
+                    items.add(cells[j][i].getItem());
+                }
+            }
+        }
+        return items;
+    }
+
+    public List<Monsters> getMonsters(){
+        List<Monsters> monsters = new ArrayList<>();
+        for(int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if (cells[j][i].getActor() != null && cells[j][i].getActor() instanceof Monsters){
+                    monsters.add((Monsters) cells[j][i].getActor());
+                }
+            }
+        }
+        return monsters;
+    }
 
     static public int randomInt(int min, int max) {
         Random random = new Random();
