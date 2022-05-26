@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.dao;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.model.GameState;
+import com.codecool.dungeoncrawl.model.PlayerItemModel;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 import org.postgresql.ds.PGSimpleDataSource;
 
@@ -28,6 +29,10 @@ public class GameDatabaseManager {
         GameState gameState = new GameState(currentMap, saved_at, playerModel);
         playerDao.add(playerModel);
         gameStateDao.add(gameState);
+        map.getPlayer().getItemInventory().getItems().forEach((name, quantity) -> {
+            PlayerItemModel playerItemModel = new PlayerItemModel(name, quantity, playerModel);
+            playerItemDao.add(playerItemModel);
+        });
     }
 
     private DataSource connect() throws SQLException {
