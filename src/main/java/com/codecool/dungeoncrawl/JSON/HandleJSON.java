@@ -29,14 +29,6 @@ public class HandleJSON {
         }
         return members;
     }
-    public static String createStringFromJSONList(List<String> JSONList){
-        StringBuilder JSONbuilder = new StringBuilder();
-
-        for(String objectJson : JSONList){
-            JSONbuilder.append(objectJson);
-        }
-        return JSONbuilder.toString();
-    }
 
     public static String createFinalJsonString(GameMap map){
         List<String> list = mapConverter(map);
@@ -54,6 +46,15 @@ public class HandleJSON {
             System.out.println(objectJson);
         }
         return JSONList;
+    }
+
+    public static String createStringFromJSONList(List<String> JSONList){
+        StringBuilder JSONbuilder = new StringBuilder();
+
+        for(String objectJson : JSONList){
+            JSONbuilder.append(objectJson);
+        }
+        return JSONbuilder.toString();
     }
 
 }
