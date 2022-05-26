@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -33,6 +34,7 @@ import javafx.util.Duration;
 
 import java.io.File;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -246,29 +248,33 @@ public class Main extends Application {
             Label playerName = new Label(name);
             ui.add(playerName, 0, 0);
             playerName.setFont(myFont);
-            //saveMapObjects(mapConverter()); !!!!!!!!!!!!
+            String finalJson = HandleJSON.createFinalJsonString(map);
+            saveTextToFile(finalJson, saveToFile());
+
         });
     }
 
 
-    public void saveMapObjects(List<String> JSONList) {
+    public File saveToFile() {
         FileChooser file = new FileChooser();
         file.setTitle("Save Image");
         //System.out.println(pic.getId());
         File file1 = file.showSaveDialog(myStage);
 
         System.out.println(file1);
+        return file1;
     }
-   /* private void saveTextToFile(String content, File file) {
+
+    private void saveTextToFile(String content, File file) {
         try {
             PrintWriter writer;
             writer = new PrintWriter(file);
             writer.println(content);
             writer.close();
         } catch (IOException ex) {
-            Logger.getLogger(SaveFileWithFileChooser.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("file not found");
         }
-    }*/
+    }
 
 
 
