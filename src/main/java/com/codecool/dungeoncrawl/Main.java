@@ -246,22 +246,10 @@ public class Main extends Application {
             Label playerName = new Label(name);
             ui.add(playerName, 0, 0);
             playerName.setFont(myFont);
-            saveMapObjects(mapConverter());
+            //saveMapObjects(mapConverter()); !!!!!!!!!!!!
         });
     }
 
-    public List<String> mapConverter() {
-        List<Object> mapObjects = HandleJSON.getEveryMember(map);
-        List<String> JSONList = new ArrayList<>();
-        for (Object obj : mapObjects) {
-            JSONList.add(HandleJSON.convertObjectToJson(obj));
-
-        }
-        for (String objectJson : JSONList) {
-            System.out.println(objectJson);
-        }
-        return JSONList;
-    }
 
     public void saveMapObjects(List<String> JSONList) {
         FileChooser file = new FileChooser();

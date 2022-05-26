@@ -38,5 +38,22 @@ public class HandleJSON {
         return JSONbuilder.toString();
     }
 
+    public static String createFinalJsonString(GameMap map){
+        List<String> list = mapConverter(map);
+        return createStringFromJSONList(list);
+    }
+
+    public static List<String> mapConverter(GameMap map) {
+        List<Object> mapObjects = getEveryMember(map);
+        List<String> JSONList = new ArrayList<>();
+        for (Object obj : mapObjects) {
+            JSONList.add(convertObjectToJson(obj));
+
+        }
+        for (String objectJson : JSONList) {
+            System.out.println(objectJson);
+        }
+        return JSONList;
+    }
 
 }
