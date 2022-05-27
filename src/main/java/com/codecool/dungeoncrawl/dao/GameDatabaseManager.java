@@ -1,6 +1,13 @@
 package com.codecool.dungeoncrawl.dao;
 
+import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.actors.Dementor;
+import com.codecool.dungeoncrawl.logic.actors.Ghost;
+import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.actors.Troll;
+import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.model.GameState;
 import com.codecool.dungeoncrawl.model.MapItemModel;
 import com.codecool.dungeoncrawl.model.PlayerItemModel;
@@ -9,8 +16,10 @@ import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.List;
 
 public class GameDatabaseManager {
+    static final String BLANK_EXTENSION = "_blank";
     private PlayerDao playerDao;
     private GameStateDao gameStateDao;
     private PlayerItemDao playerItemDao;
@@ -49,6 +58,61 @@ public class GameDatabaseManager {
             MapItemModel mapItemModel = new MapItemModel(name, x, y, gameState);
             mapItemDao.add(mapItemModel);
         });
+    }
+
+    public GameMap loadGame(String playerName){
+        PlayerModel playerModel = playerDao.get(playerName);
+        GameState gameState = gameStateDao.getGameStateByPlayerId(playerModel.getId());
+        List<MapItemModel> mapItems = mapItemDao.getMapItems(gameState.getId());
+        List<PlayerItemModel> playerItems = playerItemDao.getPlayerItems(playerModel.getId());
+
+        GameMap map = MapLoader.loadMap(gameState.getCurrentMap() + BLANK_EXTENSION);
+
+        Cell playerCell = map.getCell(playerModel.getX(), playerModel.getY());
+        Player player = new Player(playerCell);
+        player.setName(playerModel.getPlayerName());
+        player.setHealth(playerModel.getHp());
+
+        playerItems.forEach(item ->{
+            for(int i = 0; i < item.getQuantity(); i++){
+                player.loadUpItem(item.getName());
+            }
+        });
+        map.setPlayer(player);
+
+        /*mapItems.forEach(item ->{
+            Cell itemCell = map.getCell(item.getX(), item.getY());
+            switch (item.getName()){
+                case "Broom":
+                    map.placeItem(new Broom(itemCell));
+                    break;
+                case "BB's E. Flavor":
+                    map.placeItem(new BertieBottsEveryFlavorBeans(itemCell));
+                    break;
+                case "campfire":
+                    map.placeItem(new Campfire(itemCell));
+                    break;
+                case "magicKey":
+                    map.placeItem(new MagicKey(itemCell));
+                    break;
+                case "magicWand":
+                    map.placeItem(new MagicWand(itemCell));
+                    break;
+                case "ron":
+                    map.placeItem(new com.codecool.dungeoncrawl.logic.items.Character(itemCell, "Ron"));
+                    break;
+                case "dementor":
+                    map.placeItem(new Dementor(itemCell));
+                    break;
+                case "ghost":
+                    map.placeItem(new Ghost(itemCell));
+                    break;
+                case "troll":
+                    map.placeItem(new Troll(itemCell));
+                    break;
+            }
+        });*/
+        return map;
     }
 
     private DataSource connect() throws SQLException {

@@ -9,4 +9,5 @@ public interface GameStateDao {
     void update(GameState state);
     GameState get(int id);
     List<GameState> getAll();
+    GameState getGameStateByPlayerId(int player_id);
 }

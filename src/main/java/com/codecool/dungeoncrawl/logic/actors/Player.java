@@ -13,6 +13,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
+import java.util.Objects;
 
 public class Player extends Actor {
     private Inventory itemInventory;
@@ -56,7 +57,14 @@ public class Player extends Actor {
         } else {
             setLabelText("There is nothing");
         }
+    }
 
+    public void loadUpItem(String item){
+        itemInventory.addItem(item);
+        if(Objects.equals(item, "magicWand")){
+            MagicWand mw = new MagicWand(getCell());
+            this.setActual_damage(mw.getDamage());
+        }
     }
 
     private void itemPickSound() {

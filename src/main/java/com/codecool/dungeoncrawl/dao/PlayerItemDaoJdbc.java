@@ -95,4 +95,30 @@ public class PlayerItemDaoJdbc implements PlayerItemDao{
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public List<PlayerItemModel> getPlayerItems(int player_id) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id, item_name, item_quantity FROM player_items WHERE player_id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, player_id);
+            ResultSet resultSet = statement.executeQuery();
+
+            List<PlayerItemModel> result = new ArrayList<>();
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String item_name = resultSet.getString(2);
+                int quantity = resultSet.getInt(3);
+
+                PlayerModel playerModel = playerDao.get(player_id);
+
+                PlayerItemModel item = new PlayerItemModel(item_name, quantity, playerModel);
+                item.setId(id);
+                result.add(item);
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

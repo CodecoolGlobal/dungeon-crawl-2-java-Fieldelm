@@ -63,7 +63,7 @@ public class PlayerDaoJdbc implements PlayerDao {
             int x = resultSet.getInt(2);
             int y = resultSet.getInt(3);
             int hp = resultSet.getInt(4);
-            PlayerModel playerModel = new PlayerModel(player_name, x, y);
+            PlayerModel playerModel = new PlayerModel(player_name, x, y, hp);
             playerModel.setId(id);
             playerModel.setHp(hp);
             return playerModel;
@@ -87,13 +87,35 @@ public class PlayerDaoJdbc implements PlayerDao {
                 int y = resultSet.getInt(4);
                 int hp = resultSet.getInt(5);
 
-                PlayerModel playerModel = new PlayerModel(player_name, x, y);
+                PlayerModel playerModel = new PlayerModel(player_name, x, y, hp);
                 playerModel.setId(id);
-                playerModel.setHp(hp);
                 result.add(playerModel);
             }
             return result;
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public PlayerModel get(String name) {
+        try(Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id, x, y, hp FROM player WHERE player_name = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, name);
+            ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.next()) {
+                return null;
+            }
+            int id = resultSet.getInt(1);
+            int x = resultSet.getInt(2);
+            int y = resultSet.getInt(3);
+            int hp = resultSet.getInt(4);
+            PlayerModel playerModel = new PlayerModel(name, x, y, hp);
+            playerModel.setId(id);
+            return playerModel;
+        }
+        catch(SQLException e){
             throw new RuntimeException(e);
         }
     }

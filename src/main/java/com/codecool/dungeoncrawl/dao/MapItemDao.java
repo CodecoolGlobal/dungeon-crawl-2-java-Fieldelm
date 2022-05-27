@@ -9,4 +9,5 @@ public interface MapItemDao {
     void update(MapItemModel item);
     MapItemModel get(int id);
     List<MapItemModel> getAll();
+    List<MapItemModel> getMapItems(int map_id);
 }

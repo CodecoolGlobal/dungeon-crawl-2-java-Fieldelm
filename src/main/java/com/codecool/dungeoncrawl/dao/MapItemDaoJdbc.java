@@ -101,4 +101,31 @@ public class MapItemDaoJdbc implements MapItemDao {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public List<MapItemModel> getMapItems(int map_id) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id, item_name, x, y FROM map_items WHERE map_id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, map_id);
+            ResultSet resultSet = statement.executeQuery();
+
+            List<MapItemModel> result = new ArrayList<>();
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String item_name = resultSet.getString(2);
+                int x = resultSet.getInt(3);
+                int y = resultSet.getInt(4);
+
+                GameState map = gameStateDao.get(map_id);
+
+                MapItemModel item = new MapItemModel(item_name, x, y, map);
+                item.setId(id);
+                result.add(item);
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

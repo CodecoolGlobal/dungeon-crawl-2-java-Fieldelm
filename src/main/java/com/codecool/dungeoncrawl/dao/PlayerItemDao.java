@@ -9,4 +9,5 @@ public interface PlayerItemDao {
     void update(PlayerItemModel item);
     PlayerItemModel get(int id);
     List<PlayerItemModel> getAll();
+    List<PlayerItemModel> getPlayerItems(int player_id);
 }

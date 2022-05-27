@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Monsters;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.ActableItem;
@@ -37,9 +38,31 @@ public class GameMap {
         return cells[x][y];
     }
 
+    public void setCells(Cell[][] cells){
+        for (int x = 0; x < width; x++) {
+            if (height >= 0) System.arraycopy(cells[x], 0, this.cells[x], 0, height);
+        }
+    }
+
+    public Cell[][] getCells(){return cells;}
     public void setPlayer(Player player) {
         this.player = player;
         repositionCenter();
+    }
+
+    public void placeItem(Object obj){
+        if(obj instanceof Actor){
+            Actor actor = (Actor)obj;
+            int x = actor.getX();
+            int y = actor.getY();
+            cells[x][y].setActor(actor);
+        }
+        else if (obj instanceof Item){
+            Item item = (Item)obj;
+            int x = item.getX();
+            int y = item.getY();
+            cells[x][y].setItem(item);
+        }
     }
 
     public Player getPlayer() {

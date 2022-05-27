@@ -13,8 +13,11 @@ import java.util.Scanner;
 
 public class MapLoader {
     static final String TXT_EXTENSION = ".txt";
+
+    static final String SLASH = "/";
     public static GameMap loadMap(String fileName) {
-        InputStream is = MapLoader.class.getResourceAsStream(fileName + TXT_EXTENSION);
+        System.out.println("File name: " + SLASH + fileName + TXT_EXTENSION);
+        InputStream is = MapLoader.class.getResourceAsStream(SLASH + fileName + TXT_EXTENSION);
         assert is != null;
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();

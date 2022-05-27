@@ -36,7 +36,7 @@ import java.util.Timer;
 
 public class Main extends Application {
     static final int CONST_10 = 10;
-    GameMap map = MapLoader.loadMap("/bigmap");
+    GameMap map = MapLoader.loadMap("bigmap");
     Canvas canvas = new Canvas(
             21 * Tiles.TILE_WIDTH,
             21 * Tiles.TILE_WIDTH);
@@ -101,6 +101,7 @@ public class Main extends Application {
         KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
         KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
         KeyCombination saveCombination = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
+        KeyCombination loadCombination = new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN);
         if (exitCombinationMac.match(keyEvent)
                 || exitCombinationWin.match(keyEvent)
                 || keyEvent.getCode() == KeyCode.ESCAPE) {
@@ -108,6 +109,9 @@ public class Main extends Application {
         }
         else if(saveCombination.match(keyEvent)){
             showSaveOption();
+        }
+        else if(loadCombination.match(keyEvent)){
+            showLoadOption();
         }
     }
 
@@ -239,6 +243,24 @@ public class Main extends Application {
             Label playerName = new Label(name);
             ui.add(playerName, 0, 0);
             playerName.setFont(myFont);
+        });
+    }
+    public void showLoadOption(){
+        Label nameLabel = new Label("Please enter the game file");
+        ui.add(nameLabel, 0, 0);
+        TextField nameInput = new TextField();
+        ui.add(nameInput, 0, 1);
+        Button saveButton = new Button("Load");
+        ui.add(saveButton, 0, 2);
+        saveButton.setOnAction(e -> {
+            String name = nameInput.getText();
+            ui.getChildren().remove(nameInput);
+            ui.getChildren().remove(nameLabel);
+            ui.getChildren().remove(saveButton);
+            GameMap newMap = dbManager.loadGame(name);
+            map.setCells(newMap.getCells());
+            map.setPlayer(newMap.getPlayer());
+            refresh();
         });
     }
 }
